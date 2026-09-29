@@ -4,7 +4,7 @@
   "private": true,
   "description": "CASHNET AI-Assisted Cybercrime Cash-Out Risk Decision Support Platform",
   "scripts": {
-    "build": "cd src/frontend && npm run build",
+    "build": "cd src/frontend && npm install --include=dev && npm run build",
     "test": "cd src/frontend && npm test -- --run",
     "lint": "cd src/frontend && npm run build"
   }

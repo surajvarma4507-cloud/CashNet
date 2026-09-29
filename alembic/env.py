@@ -26,14 +26,15 @@ if config.config_file_name is not None:
 # Set target metadata for 'autogenerate' support
 target_metadata = Base.metadata
 
-# Dynamically set sqlalchemy.url from Pydantic settings if not explicitly provided
-if not config.get_main_option("sqlalchemy.url"):
+# Dynamically set sqlalchemy.url from Pydantic settings if not explicitly provided or placeholder
+current_url = config.get_main_option("sqlalchemy.url")
+if not current_url or current_url.startswith("driver://"):
     config.set_main_option("sqlalchemy.url", settings.DATABASE_URL)
 
 
 def run_migrations_offline() -> None:
     """Run migrations in 'offline' mode."""
-    url = config.get_main_option("sqlalchemy.url", settings.DATABASE_URL)
+    url = config.get_main_option("sqlalchemy.url") or settings.DATABASE_URL
     context.configure(
         url=url,
         target_metadata=target_metadata,
@@ -49,7 +50,7 @@ def run_migrations_offline() -> None:
 def run_migrations_online() -> None:
     """Run migrations in 'online' mode."""
     configuration = config.get_section(config.config_ini_section, {})
-    url = config.get_main_option("sqlalchemy.url", settings.DATABASE_URL)
+    url = config.get_main_option("sqlalchemy.url") or settings.DATABASE_URL
     configuration["sqlalchemy.url"] = url
 
     connect_args = {}

@@ -44,9 +44,17 @@ class Settings(BaseSettings):
     @field_validator("DATABASE_URL", mode="before")
     @classmethod
     def assemble_db_connection(cls, v: Any) -> str:
-        """Normalize database URL for PostgreSQL compatibility."""
-        if isinstance(v, str) and v.startswith("postgres://"):
-            return v.replace("postgres://", "postgresql://", 1)
+        """Normalize database URL for PostgreSQL and SQLite compatibility.
+
+        Ensures PostgreSQL uses the project's required psycopg2 driver (postgresql+psycopg2://)
+        when generic postgres:// or postgresql:// schemes are supplied.
+        """
+        if isinstance(v, str):
+            v = v.strip()
+            if v.startswith("postgres://"):
+                return "postgresql+psycopg2://" + v[len("postgres://"):]
+            elif v.startswith("postgresql://"):
+                return "postgresql+psycopg2://" + v[len("postgresql://"):]
         return v
 
     @field_validator("CORS_ORIGINS", mode="before")

@@ -468,3 +468,45 @@ def test_list_location_hotspots_anti_leakage():
         assert item["activity_risk_level"] in ("high", "elevated", "moderate")
 
 
+# =====================================================================
+# Database Configuration and Alembic URL Tests
+# =====================================================================
+
+def test_database_url_normalization():
+    """Verify Settings normalizes PostgreSQL and SQLite database URLs."""
+    from src.backend.config import Settings
+
+    # SQLite URLs remain unchanged
+    s_sqlite = Settings(DATABASE_URL="sqlite:///./cashnet_test.db")
+    assert s_sqlite.DATABASE_URL == "sqlite:///./cashnet_test.db"
+
+    # postgres:// scheme normalized to postgresql+psycopg2://
+    s_postgres = Settings(DATABASE_URL="postgres://user:pass@localhost:5432/dbname")
+    assert s_postgres.DATABASE_URL == "postgresql+psycopg2://user:pass@localhost:5432/dbname"
+
+    # postgresql:// scheme normalized to postgresql+psycopg2://
+    s_postgresql = Settings(DATABASE_URL="postgresql://user:pass@localhost:5432/dbname?sslmode=require")
+    assert s_postgresql.DATABASE_URL == "postgresql+psycopg2://user:pass@localhost:5432/dbname?sslmode=require"
+
+    # postgresql+psycopg2:// scheme preserved
+    s_psycopg2 = Settings(DATABASE_URL="postgresql+psycopg2://user:pass@localhost:5432/dbname")
+    assert s_psycopg2.DATABASE_URL == "postgresql+psycopg2://user:pass@localhost:5432/dbname"
+
+
+def test_alembic_config_resolves_env_database_url(monkeypatch):
+    """Verify Alembic configuration resolves DATABASE_URL and avoids driver:// placeholder."""
+    from alembic.config import Config
+    from src.backend.config import Settings
+
+    test_url = "postgresql://cashnet_user:secret@localhost:5432/cashnet_prod"
+    monkeypatch.setenv("DATABASE_URL", test_url)
+
+    new_settings = Settings()
+    assert new_settings.DATABASE_URL == "postgresql+psycopg2://cashnet_user:secret@localhost:5432/cashnet_prod"
+
+    cfg = Config("alembic.ini")
+    current_url = cfg.get_main_option("sqlalchemy.url")
+    assert current_url is None or not current_url.startswith("driver://")
+
+
+

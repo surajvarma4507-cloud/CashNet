@@ -1,0 +1,7 @@
+# Development, Testing, and Offline Synthetic Data Generation Requirements
+-r requirements.txt
+pandas>=2.0.0
+faker>=19.0.0
+pytest>=7.4.0
+pytest-asyncio>=0.23.0
+httpx>=0.27.0

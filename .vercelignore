@@ -1,0 +1,54 @@
+# ============================================================================
+# CASHNET - Vercel Serverless Function & Deployment Packaging Exclusions
+# ============================================================================
+
+# Local virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Node modules (installed dynamically during Vercel buildCommand)
+node_modules/
+src/frontend/node_modules/
+
+# Local databases (dev and test SQLite databases)
+*.db
+*.sqlite
+*.sqlite3
+cashnet_dev.db
+src/frontend/cashnet_dev.db
+
+# Raw synthetic CSV datasets and offline data generation scripts
+data/
+data_v2/
+database/
+src/synthetic_data/
+scripts/
+
+# Test suites, pytest caches, and coverage artifacts
+tests/
+.pytest_cache/
+src/frontend/.pytest_cache/
+.coverage
+htmlcov/
+nosetests.xml
+coverage.xml
+
+# Evaluation reports & extra documentation
+reports/
+docs/
+DATA_DICTIONARY.md
+FEATURE_MANIFEST.md
+
+# Python cache artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.eggs/
+*.egg-info/
+
+# Git and CI/CD metadata
+.git/
+.github/
