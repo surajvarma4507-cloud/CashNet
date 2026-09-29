@@ -1,0 +1,37 @@
+{
+  "dataset_profile": "standard",
+  "seed": 42,
+  "generated_at": "2026-09-28T12:21:00.170498+00:00",
+  "total_complaints": 5000,
+  "total_snapshots": 5000,
+  "prediction_mode_snapshots": 2383,
+  "investigation_mode_snapshots": 2617,
+  "positive_future_cashout_snapshots": 1942,
+  "positive_future_cashout_pct_of_prediction_mode": 81.49,
+  "no_future_cashout_snapshots": 3058,
+  "evaluation_status_distribution": {
+    "already_withdrawn_past": 2790,
+    "withdrawn_future": 1942,
+    "no_cashout_digital_only": 268
+  },
+  "fraud_scenario_distribution": {
+    "upi_fraud": 646,
+    "digital_arrest_scam": 589,
+    "loan_app_extortion": 656,
+    "account_takeover": 643,
+    "phishing": 587,
+    "investment_scam": 654,
+    "remote_access_scam": 604,
+    "social_engineering": 621
+  },
+  "account_label_distribution": {
+    "synthetic_mules": 1993,
+    "legitimate_accounts": 8008,
+    "mule_ratio": 0.1993
+  },
+  "total_transactions": 65000,
+  "total_cashouts": 6997,
+  "total_locations": 300,
+  "total_location_candidates": 35000,
+  "candidates_per_snapshot_avg": 7.0
+}

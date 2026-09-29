@@ -1,0 +1,1011 @@
+{
+  "timestamp": "2026-09-28T13:04:16.098297Z",
+  "data_dir": "data_v2",
+  "record_counts": {
+    "accounts": 10001,
+    "complaints": 5000,
+    "transactions": 65000,
+    "locations": 300,
+    "cashout_events": 6997,
+    "account_labels": 10001,
+    "case_relationships": 29499,
+    "prediction_snapshots": 5000,
+    "location_candidates": 35000,
+    "case_features": 5000,
+    "prediction_ground_truth": 5000
+  },
+  "primary_key_uniqueness": {
+    "accounts": {
+      "pk_column": "account_id",
+      "total_rows": 10001,
+      "unique_values": 10001,
+      "is_unique": true
+    },
+    "complaints": {
+      "pk_column": "case_id",
+      "total_rows": 5000,
+      "unique_values": 5000,
+      "is_unique": true
+    },
+    "transactions": {
+      "pk_column": "transaction_id",
+      "total_rows": 65000,
+      "unique_values": 65000,
+      "is_unique": true
+    },
+    "locations": {
+      "pk_column": "location_id",
+      "total_rows": 300,
+      "unique_values": 300,
+      "is_unique": true
+    },
+    "cashout_events": {
+      "pk_column": "cashout_event_id",
+      "total_rows": 6997,
+      "unique_values": 6997,
+      "is_unique": true
+    },
+    "account_labels": {
+      "pk_column": "account_id",
+      "total_rows": 10001,
+      "unique_values": 10001,
+      "is_unique": true
+    },
+    "case_relationships": {
+      "pk_column": "relationship_id",
+      "total_rows": 29499,
+      "unique_values": 29499,
+      "is_unique": true
+    },
+    "prediction_snapshots": {
+      "pk_column": "snapshot_id",
+      "total_rows": 5000,
+      "unique_values": 5000,
+      "is_unique": true
+    },
+    "location_candidates": {
+      "pk_column": "candidate_id",
+      "total_rows": 35000,
+      "unique_values": 35000,
+      "is_unique": true
+    },
+    "case_features": {
+      "pk_column": "case_id",
+      "total_rows": 5000,
+      "unique_values": 5000,
+      "is_unique": true
+    },
+    "prediction_ground_truth": {
+      "pk_column": "ground_truth_id",
+      "total_rows": 5000,
+      "unique_values": 5000,
+      "is_unique": true
+    }
+  },
+  "foreign_key_integrity": {
+    "accounts.home_location_id": {
+      "total_rows": 10001,
+      "null_count": 407,
+      "nullable_allowed": true,
+      "invalid_fk_count": 0,
+      "sample_invalid": [],
+      "is_valid": true
+    },
+    "complaints.victim_account_id": {
+      "total_rows": 5000,
+      "null_count": 0,
+      "nullable_allowed": false,
+      "invalid_fk_count": 0,
+      "sample_invalid": [],
+      "is_valid": true
+    },
+    "complaints.victim_location_id": {
+      "total_rows": 5000,
+      "null_count": 0,
+      "nullable_allowed": true,
+      "invalid_fk_count": 0,
+      "sample_invalid": [],
+      "is_valid": true
+    },
+    "complaints.initial_transaction_id": {
+      "total_rows": 5000,
+      "null_count": 0,
+      "nullable_allowed": true,
+      "invalid_fk_count": 0,
+      "sample_invalid": [],
+      "is_valid": true
+    },
+    "transactions.case_id": {
+      "total_rows": 65000,
+      "null_count": 45791,
+      "nullable_allowed": true,
+      "invalid_fk_count": 0,
+      "sample_invalid": [],
+      "is_valid": true
+    },
+    "transactions.from_account_id": {
+      "total_rows": 65000,
+      "null_count": 0,
+      "nullable_allowed": false,
+      "invalid_fk_count": 0,
+      "sample_invalid": [],
+      "is_valid": true
+    },
+    "transactions.to_account_id": {
+      "total_rows": 65000,
+      "null_count": 0,
+      "nullable_allowed": false,
+      "invalid_fk_count": 0,
+      "sample_invalid": [],
+      "is_valid": true
+    },
+    "transactions.location_id": {
+      "total_rows": 65000,
+      "null_count": 300,
+      "nullable_allowed": true,
+      "invalid_fk_count": 0,
+      "sample_invalid": [],
+      "is_valid": true
+    },
+    "cashout_events.case_id": {
+      "total_rows": 6997,
+      "null_count": 0,
+      "nullable_allowed": false,
+      "invalid_fk_count": 0,
+      "sample_invalid": [],
+      "is_valid": true
+    },
+    "cashout_events.account_id": {
+      "total_rows": 6997,
+      "null_count": 0,
+      "nullable_allowed": false,
+      "invalid_fk_count": 0,
+      "sample_invalid": [],
+      "is_valid": true
+    },
+    "cashout_events.location_id": {
+      "total_rows": 6997,
+      "null_count": 0,
+      "nullable_allowed": false,
+      "invalid_fk_count": 0,
+      "sample_invalid": [],
+      "is_valid": true
+    },
+    "cashout_events.transaction_id": {
+      "total_rows": 6997,
+      "null_count": 0,
+      "nullable_allowed": false,
+      "invalid_fk_count": 0,
+      "sample_invalid": [],
+      "is_valid": true
+    },
+    "account_labels.account_id": {
+      "total_rows": 10001,
+      "null_count": 0,
+      "nullable_allowed": false,
+      "invalid_fk_count": 0,
+      "sample_invalid": [],
+      "is_valid": true
+    },
+    "case_relationships.case_id": {
+      "total_rows": 29499,
+      "null_count": 0,
+      "nullable_allowed": false,
+      "invalid_fk_count": 0,
+      "sample_invalid": [],
+      "is_valid": true
+    },
+    "case_relationships.related_case_id": {
+      "total_rows": 29499,
+      "null_count": 0,
+      "nullable_allowed": false,
+      "invalid_fk_count": 0,
+      "sample_invalid": [],
+      "is_valid": true
+    },
+    "case_relationships.account_id": {
+      "total_rows": 29499,
+      "null_count": 0,
+      "nullable_allowed": false,
+      "invalid_fk_count": 0,
+      "sample_invalid": [],
+      "is_valid": true
+    },
+    "prediction_snapshots.case_id": {
+      "total_rows": 5000,
+      "null_count": 0,
+      "nullable_allowed": false,
+      "invalid_fk_count": 0,
+      "sample_invalid": [],
+      "is_valid": true
+    },
+    "prediction_snapshots.account_id": {
+      "total_rows": 5000,
+      "null_count": 0,
+      "nullable_allowed": false,
+      "invalid_fk_count": 0,
+      "sample_invalid": [],
+      "is_valid": true
+    },
+    "location_candidates.snapshot_id": {
+      "total_rows": 35000,
+      "null_count": 0,
+      "nullable_allowed": false,
+      "invalid_fk_count": 0,
+      "sample_invalid": [],
+      "is_valid": true
+    },
+    "location_candidates.location_id": {
+      "total_rows": 35000,
+      "null_count": 0,
+      "nullable_allowed": false,
+      "invalid_fk_count": 0,
+      "sample_invalid": [],
+      "is_valid": true
+    },
+    "case_features.case_id": {
+      "total_rows": 5000,
+      "null_count": 0,
+      "nullable_allowed": false,
+      "invalid_fk_count": 0,
+      "sample_invalid": [],
+      "is_valid": true
+    },
+    "prediction_ground_truth.snapshot_id": {
+      "total_rows": 5000,
+      "null_count": 0,
+      "nullable_allowed": false,
+      "invalid_fk_count": 0,
+      "sample_invalid": [],
+      "is_valid": true
+    },
+    "prediction_ground_truth.actual_next_cashout_event_id": {
+      "total_rows": 5000,
+      "null_count": 3058,
+      "nullable_allowed": true,
+      "invalid_fk_count": 0,
+      "sample_invalid": [],
+      "is_valid": true
+    },
+    "prediction_ground_truth.actual_next_location_id": {
+      "total_rows": 5000,
+      "null_count": 3058,
+      "nullable_allowed": true,
+      "invalid_fk_count": 0,
+      "sample_invalid": [],
+      "is_valid": true
+    }
+  },
+  "missingness_analysis": {
+    "accounts": {
+      "account_id": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "account_type": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "account_opened_at": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "account_age_days": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "home_location_id": {
+        "null_count": 407,
+        "missingness_pct": 4.07
+      },
+      "account_status": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "baseline_transaction_count": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "baseline_monthly_inflow": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "baseline_monthly_outflow": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "synthetic_profile_type": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "created_at": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      }
+    },
+    "complaints": {
+      "case_id": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "victim_account_id": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "fraud_type": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "fraud_channel": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "fraud_amount": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "fraud_currency": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "fraud_occurred_at": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "complaint_registered_at": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "complaint_delay_minutes": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "victim_location_id": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "initial_transaction_id": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "complaint_status": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "synthetic_description": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "created_at": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      }
+    },
+    "transactions": {
+      "transaction_id": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "case_id": {
+        "null_count": 45791,
+        "missingness_pct": 70.448
+      },
+      "from_account_id": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "to_account_id": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "amount": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "currency": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "transaction_type": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "channel": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "transaction_status": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "initiated_at": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "completed_at": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "location_id": {
+        "null_count": 300,
+        "missingness_pct": 0.462
+      },
+      "is_fraud_linked": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "synthetic_event_group_id": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "created_at": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      }
+    },
+    "locations": {
+      "location_id": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "location_name": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "location_type": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "city": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "region": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "latitude": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "longitude": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "area_cluster_id": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "synthetic_location_group": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "is_active": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "created_at": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      }
+    },
+    "cashout_events": {
+      "cashout_event_id": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "case_id": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "account_id": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "location_id": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "transaction_id": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "withdrawal_amount": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "cashout_occurred_at": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "minutes_since_previous_transaction": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "is_future_ground_truth": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "synthetic_event_group_id": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "created_at": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      }
+    },
+    "account_labels": {
+      "account_id": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "is_synthetic_mule": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "synthetic_behaviour_type": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "label_generation_reason": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "label_created_at": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      }
+    },
+    "case_relationships": {
+      "relationship_id": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "case_id": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "related_case_id": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "account_id": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "relationship_type": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "shared_transaction_count": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "shared_account_count": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "relationship_created_at": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      }
+    },
+    "prediction_snapshots": {
+      "snapshot_id": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "case_id": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "account_id": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "prediction_timestamp": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "complaint_delay_minutes": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "minutes_since_last_transaction": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "incoming_transaction_count_1h": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "outgoing_transaction_count_1h": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "incoming_transaction_count_24h": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "outgoing_transaction_count_24h": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "total_inflow_24h": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "total_outflow_24h": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "estimated_remaining_amount": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "unique_incoming_sources_24h": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "linked_account_count": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "linked_case_count": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "historical_cashout_count": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "nearest_location_distance_km": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "hour_of_day": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "day_of_week": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "account_risk_score": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "prediction_mode": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "created_at": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      }
+    },
+    "location_candidates": {
+      "candidate_id": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "snapshot_id": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "location_id": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "distance_from_account_km": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "historical_cashout_count": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "historical_case_count": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "historical_location_risk": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "candidate_rank_reference": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "created_at": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      }
+    },
+    "case_features": {
+      "case_id": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "fraud_amount": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "complaint_delay_minutes": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "transaction_count": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "unique_account_count": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "network_depth": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "network_branching_factor": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "cashout_count": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "total_cashout_amount": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "distinct_cashout_locations": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "average_transaction_amount": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "max_transaction_amount": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "synthetic_pattern_type": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "created_at": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      }
+    },
+    "prediction_ground_truth": {
+      "ground_truth_id": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "snapshot_id": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "actual_next_cashout_event_id": {
+        "null_count": 3058,
+        "missingness_pct": 61.16
+      },
+      "actual_next_location_id": {
+        "null_count": 3058,
+        "missingness_pct": 61.16
+      },
+      "actual_next_cashout_at": {
+        "null_count": 3058,
+        "missingness_pct": 61.16
+      },
+      "actual_minutes_until_cashout": {
+        "null_count": 3058,
+        "missingness_pct": 61.16
+      },
+      "actual_cashout_amount": {
+        "null_count": 3058,
+        "missingness_pct": 61.16
+      },
+      "has_future_cashout": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      },
+      "evaluation_status": {
+        "null_count": 0,
+        "missingness_pct": 0.0
+      }
+    }
+  },
+  "transaction_audit": {
+    "total_transactions": 65000,
+    "background_transactions_null_case_id": 45791,
+    "background_transactions_pct": 70.45,
+    "fraud_linked_transactions_count": 19209,
+    "null_location_id_count": 300,
+    "null_location_id_pct": 0.46,
+    "null_location_by_channel": {
+      "UPI": 159,
+      "IMPS": 74,
+      "NEFT": 59,
+      "wallet": 8
+    },
+    "has_location_by_channel": {
+      "UPI": 29663,
+      "ATM": 11547,
+      "NEFT": 6233,
+      "IMPS": 11084,
+      "RTGS": 1702,
+      "wallet": 2367,
+      "card": 2104
+    },
+    "explanation": "Null case_id in transactions.csv represents normal background financial activity (non-fraud P2P/merchant transfers). Null location_id occurs on purely digital payment rails (UPI, IMPS, NEFT, RTGS, wallet) where no physical ATM/branch terminal is involved. Physical ATM withdrawals and cashout events retain physical location_id mapping."
+  },
+  "snapshot_ground_truth_alignment": {},
+  "crosstab_status_vs_mode": {
+    "investigation": {
+      "already_withdrawn_past": 2596,
+      "no_cashout_digital_only": 21
+    },
+    "prediction": {
+      "withdrawn_future": 1942,
+      "already_withdrawn_past": 194,
+      "no_cashout_digital_only": 247
+    }
+  },
+  "positive_rate_by_mode": {
+    "investigation": {
+      "total_snapshots": 2617,
+      "positive_future_cashouts": 0,
+      "positive_rate_pct": 0.0
+    },
+    "prediction": {
+      "total_snapshots": 2383,
+      "positive_future_cashouts": 1942,
+      "positive_rate_pct": 81.49
+    }
+  },
+  "temporal_ordering_audit": {
+    "temporal_defects_count": 0,
+    "sample_temporal_defects": [],
+    "is_temporally_sound": true
+  },
+  "candidate_coverage_audit": {
+    "total_positive_future_cases": 1942,
+    "covered_in_candidates": 1942,
+    "missing_from_candidates": 0,
+    "missing_case_ids": [],
+    "coverage_pct": 100.0
+  },
+  "candidate_duplicates_audit": {
+    "candidate_counts_distribution": {
+      "7": 5000
+    },
+    "snapshots_with_duplicate_locations": 0,
+    "sample_duplicate_snapshots": []
+  },
+  "financial_consistency_audit": {
+    "financial_defects_count": 0,
+    "sample_defects": [],
+    "is_financially_consistent": true
+  },
+  "leakage_feature_audit": {
+    "table_leakage_checks": {
+      "prediction_snapshots": {
+        "columns": [
+          "account_id",
+          "account_risk_score",
+          "case_id",
+          "complaint_delay_minutes",
+          "created_at",
+          "day_of_week",
+          "estimated_remaining_amount",
+          "historical_cashout_count",
+          "hour_of_day",
+          "incoming_transaction_count_1h",
+          "incoming_transaction_count_24h",
+          "linked_account_count",
+          "linked_case_count",
+          "minutes_since_last_transaction",
+          "nearest_location_distance_km",
+          "outgoing_transaction_count_1h",
+          "outgoing_transaction_count_24h",
+          "prediction_mode",
+          "prediction_timestamp",
+          "snapshot_id",
+          "total_inflow_24h",
+          "total_outflow_24h",
+          "unique_incoming_sources_24h"
+        ],
+        "leaked_target_columns": [],
+        "is_leakage_free": true
+      },
+      "location_candidates": {
+        "columns": [
+          "candidate_id",
+          "candidate_rank_reference",
+          "created_at",
+          "distance_from_account_km",
+          "historical_case_count",
+          "historical_cashout_count",
+          "historical_location_risk",
+          "location_id",
+          "snapshot_id"
+        ],
+        "leaked_target_columns": [],
+        "is_leakage_free": true
+      },
+      "case_features": {
+        "columns": [
+          "average_transaction_amount",
+          "case_id",
+          "cashout_count",
+          "complaint_delay_minutes",
+          "created_at",
+          "distinct_cashout_locations",
+          "fraud_amount",
+          "max_transaction_amount",
+          "network_branching_factor",
+          "network_depth",
+          "synthetic_pattern_type",
+          "total_cashout_amount",
+          "transaction_count",
+          "unique_account_count"
+        ],
+        "leaked_target_columns": [],
+        "is_leakage_free": true
+      }
+    },
+    "feature_provenance_audit": {
+      "case_features.cashout_count": {
+        "definition": "Count of cashout events completed strictly on or before prediction_timestamp (t_complaint).",
+        "provenance": "Point-in-time calculation in ground_truth.py filtering cashout_occurred_at <= t_complaint.",
+        "status": "VERIFIED_SAFE_POINT_IN_TIME"
+      },
+      "case_features.total_cashout_amount": {
+        "definition": "Sum of INR withdrawn strictly on or before prediction_timestamp.",
+        "provenance": "Point-in-time sum in ground_truth.py filtering cashout_occurred_at <= t_complaint.",
+        "status": "VERIFIED_SAFE_POINT_IN_TIME"
+      },
+      "case_features.distinct_cashout_locations": {
+        "definition": "Count of distinct ATM locations used strictly on or before prediction_timestamp.",
+        "provenance": "Point-in-time set aggregation in ground_truth.py filtering cashout_occurred_at <= t_complaint.",
+        "status": "VERIFIED_SAFE_POINT_IN_TIME"
+      },
+      "case_features.transaction_count": {
+        "definition": "Count of transactions completed on or before prediction_timestamp.",
+        "provenance": "Point-in-time count of past_txs (completed_at <= t_complaint).",
+        "status": "VERIFIED_SAFE_POINT_IN_TIME"
+      },
+      "prediction_snapshots.account_risk_score": {
+        "definition": "Heuristic risk score computed from estimated remaining balance and delay.",
+        "provenance": "Deterministic formula using only pre-snapshot fields.",
+        "status": "VERIFIED_SAFE_POINT_IN_TIME"
+      },
+      "transactions.is_fraud_linked": {
+        "definition": "Generator ground-truth linkage flag.",
+        "provenance": "Post-event label in raw transactions. NOT accessible at prediction time without investigation.",
+        "status": "EXCLUDED_FROM_MODEL_INPUTS"
+      },
+      "location_candidates.historical_location_risk": {
+        "definition": "Synthetic historical location baseline risk index.",
+        "provenance": "Pre-computed static location risk profile.",
+        "status": "VERIFIED_SAFE_POINT_IN_TIME"
+      },
+      "location_candidates.candidate_rank_reference": {
+        "definition": "Distance-based reference rank (1 = nearest ATM).",
+        "provenance": "Computed purely from spatial Haversine distance. Excluded from initial learned features to prevent trivial distance proxying; used as distance baseline.",
+        "status": "USED_AS_BASELINE_REFERENCE_ONLY"
+      }
+    }
+  },
+  "all_critical_checks_passed": true,
+  "identified_defects": [],
+  "documented_expected_nulls": [
+    "transactions.case_id: Expected nulls for normal background banking transactions.",
+    "transactions.location_id: Expected nulls for purely digital payments (UPI/IMPS/NEFT/RTGS)."
+  ]
+}

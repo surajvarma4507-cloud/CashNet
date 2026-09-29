@@ -1,0 +1,9 @@
+{
+  "grouping_key": "case_id",
+  "train_pct": 80,
+  "test_pct": 20,
+  "seed": 42,
+  "total_prediction_mode_cases": 2383,
+  "train_case_count": 1906,
+  "test_case_count": 477
+}

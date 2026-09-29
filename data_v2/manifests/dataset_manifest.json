@@ -1,0 +1,242 @@
+{
+  "generator_name": "CASHNET Synthetic Financial Data Engine",
+  "generator_version": "2.0.0",
+  "schema_version": "2.0",
+  "generated_at": "2026-09-28T12:21:00.164148+00:00",
+  "random_seed": 42,
+  "profile": "standard",
+  "base_currency": "INR",
+  "geographic_context": "India Metros (MMR, NCR, Bengaluru, Hyderabad, Kolkata, Pune, Chennai, Ahmedabad, Jaipur, Lucknow, Chandigarh, Kochi, Indore)",
+  "synthetic_data_declaration": "This dataset contains purely synthetic financial and cybercrime transaction intelligence generated for Smart India Hackathon problem statement SIH26184. No actual bank records, KYC, PII, Aadhaar, or confidential intelligence are contained herein.",
+  "table_manifest": {
+    "accounts": {
+      "relative_path": "raw/accounts.csv",
+      "row_count": 10001,
+      "column_count": 11,
+      "columns": [
+        "account_id",
+        "account_type",
+        "account_opened_at",
+        "account_age_days",
+        "home_location_id",
+        "account_status",
+        "baseline_transaction_count",
+        "baseline_monthly_inflow",
+        "baseline_monthly_outflow",
+        "synthetic_profile_type",
+        "created_at"
+      ],
+      "sha256_checksum": "5c16a27a46d1829573fecd76caa85a7b7ae9b9a9057f868e2d384ea8e8c6fcda",
+      "file_size_bytes": 1271271
+    },
+    "complaints": {
+      "relative_path": "raw/complaints.csv",
+      "row_count": 5000,
+      "column_count": 14,
+      "columns": [
+        "case_id",
+        "victim_account_id",
+        "fraud_type",
+        "fraud_channel",
+        "fraud_amount",
+        "fraud_currency",
+        "fraud_occurred_at",
+        "complaint_registered_at",
+        "complaint_delay_minutes",
+        "victim_location_id",
+        "initial_transaction_id",
+        "complaint_status",
+        "synthetic_description",
+        "created_at"
+      ],
+      "sha256_checksum": "e9a1cfbc30505922c31e00e52c263ab7409b1cbd5f27a7748f6bb57f24311302",
+      "file_size_bytes": 1569551
+    },
+    "transactions": {
+      "relative_path": "raw/transactions.csv",
+      "row_count": 65000,
+      "column_count": 15,
+      "columns": [
+        "transaction_id",
+        "case_id",
+        "from_account_id",
+        "to_account_id",
+        "amount",
+        "currency",
+        "transaction_type",
+        "channel",
+        "transaction_status",
+        "initiated_at",
+        "completed_at",
+        "location_id",
+        "is_fraud_linked",
+        "synthetic_event_group_id",
+        "created_at"
+      ],
+      "sha256_checksum": "d173e1e06b1b23191cf269fa504cc53e7740a275d5eac681cf9a41a92f1e527f",
+      "file_size_bytes": 12143595
+    },
+    "locations": {
+      "relative_path": "raw/locations.csv",
+      "row_count": 300,
+      "column_count": 11,
+      "columns": [
+        "location_id",
+        "location_name",
+        "location_type",
+        "city",
+        "region",
+        "latitude",
+        "longitude",
+        "area_cluster_id",
+        "synthetic_location_group",
+        "is_active",
+        "created_at"
+      ],
+      "sha256_checksum": "a482c860d1309392dc77dc4a35ab929982da88c2e42852bdc003de683a4a9b00",
+      "file_size_bytes": 45161
+    },
+    "cashout_events": {
+      "relative_path": "raw/cashout_events.csv",
+      "row_count": 6997,
+      "column_count": 11,
+      "columns": [
+        "cashout_event_id",
+        "case_id",
+        "account_id",
+        "location_id",
+        "transaction_id",
+        "withdrawal_amount",
+        "cashout_occurred_at",
+        "minutes_since_previous_transaction",
+        "is_future_ground_truth",
+        "synthetic_event_group_id",
+        "created_at"
+      ],
+      "sha256_checksum": "8a51f4c4734dd4c8c1781a10ff458451a8bcb9003ae29c8f2ecd72c01d1b5b05",
+      "file_size_bytes": 1068319
+    },
+    "account_labels": {
+      "relative_path": "raw/account_labels.csv",
+      "row_count": 10001,
+      "column_count": 5,
+      "columns": [
+        "account_id",
+        "is_synthetic_mule",
+        "synthetic_behaviour_type",
+        "label_generation_reason",
+        "label_created_at"
+      ],
+      "sha256_checksum": "6ba0629deb01909631e30709a5b65a8114d394a16ecb467206c1b77d2f8f75df",
+      "file_size_bytes": 1388816
+    },
+    "case_relationships": {
+      "relative_path": "raw/case_relationships.csv",
+      "row_count": 29499,
+      "column_count": 8,
+      "columns": [
+        "relationship_id",
+        "case_id",
+        "related_case_id",
+        "account_id",
+        "relationship_type",
+        "shared_transaction_count",
+        "shared_account_count",
+        "relationship_created_at"
+      ],
+      "sha256_checksum": "8662fb4fffe868dada43d3cfa7be19c88c0b78817bed5d0f3849a93ca3e5669e",
+      "file_size_bytes": 3127034
+    },
+    "prediction_snapshots": {
+      "relative_path": "processed/prediction_snapshots.csv",
+      "row_count": 5000,
+      "column_count": 23,
+      "columns": [
+        "snapshot_id",
+        "case_id",
+        "account_id",
+        "prediction_timestamp",
+        "complaint_delay_minutes",
+        "minutes_since_last_transaction",
+        "incoming_transaction_count_1h",
+        "outgoing_transaction_count_1h",
+        "incoming_transaction_count_24h",
+        "outgoing_transaction_count_24h",
+        "total_inflow_24h",
+        "total_outflow_24h",
+        "estimated_remaining_amount",
+        "unique_incoming_sources_24h",
+        "linked_account_count",
+        "linked_case_count",
+        "historical_cashout_count",
+        "nearest_location_distance_km",
+        "hour_of_day",
+        "day_of_week",
+        "account_risk_score",
+        "prediction_mode",
+        "created_at"
+      ],
+      "sha256_checksum": "3ad0b43197586054127b65683ebc71d9c96c5ae2d61dcf00afb1b8771162dd1a",
+      "file_size_bytes": 824956
+    },
+    "location_candidates": {
+      "relative_path": "processed/location_candidates.csv",
+      "row_count": 35000,
+      "column_count": 9,
+      "columns": [
+        "candidate_id",
+        "snapshot_id",
+        "location_id",
+        "distance_from_account_km",
+        "historical_cashout_count",
+        "historical_case_count",
+        "historical_location_risk",
+        "candidate_rank_reference",
+        "created_at"
+      ],
+      "sha256_checksum": "51ed39b22baa3c5c7e70f13c987c1cc6b0b2a963bed3c42cca498010e9c40858",
+      "file_size_bytes": 2819827
+    },
+    "case_features": {
+      "relative_path": "processed/case_features.csv",
+      "row_count": 5000,
+      "column_count": 14,
+      "columns": [
+        "case_id",
+        "fraud_amount",
+        "complaint_delay_minutes",
+        "transaction_count",
+        "unique_account_count",
+        "network_depth",
+        "network_branching_factor",
+        "cashout_count",
+        "total_cashout_amount",
+        "distinct_cashout_locations",
+        "average_transaction_amount",
+        "max_transaction_amount",
+        "synthetic_pattern_type",
+        "created_at"
+      ],
+      "sha256_checksum": "c126bc505ee0bc53bd9a3b0b6cec38786847e3e647b7346656226a8c09179616",
+      "file_size_bytes": 565464
+    },
+    "prediction_ground_truth": {
+      "relative_path": "evaluation/prediction_ground_truth.csv",
+      "row_count": 5000,
+      "column_count": 9,
+      "columns": [
+        "ground_truth_id",
+        "snapshot_id",
+        "actual_next_cashout_event_id",
+        "actual_next_location_id",
+        "actual_next_cashout_at",
+        "actual_minutes_until_cashout",
+        "actual_cashout_amount",
+        "has_future_cashout",
+        "evaluation_status"
+      ],
+      "sha256_checksum": "35e67495f95660bce94ba685fff4d87e508c83159cc5bd8784d39aafff126d3d",
+      "file_size_bytes": 378845
+    }
+  }
+}

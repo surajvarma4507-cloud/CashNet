@@ -1,0 +1,302 @@
+account_id,is_synthetic_mule,synthetic_behaviour_type,label_generation_reason,label_created_at
+ACC_IND_00001,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00002,0,legitimate_merchant_high_vol,High-volume commercial transactions with balanced inflow/outflow and established tenure,2026-06-01T00:00:00Z
+ACC_IND_00003,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00004,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_INT_00005,1,mule_layer_2_distributor,Layer-2 intermediary receiving rapid onward transfers from layer-1 aggregator,2026-06-01T00:00:00Z
+ACC_IND_00006,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00007,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_WAL_00008,1,mule_layer_1_aggregator,Direct fraud recipient acting as primary funnel/layer-1 aggregator,2026-06-01T00:00:00Z
+ACC_IND_00009,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00010,1,mule_layer_2_distributor,Layer-2 intermediary receiving rapid onward transfers from layer-1 aggregator,2026-06-01T00:00:00Z
+ACC_IND_00011,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_WAL_00012,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_WAL_00013,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00014,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00015,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_WAL_00016,1,mule_layer_1_aggregator,Direct fraud recipient acting as primary funnel/layer-1 aggregator,2026-06-01T00:00:00Z
+ACC_BUS_00017,0,legitimate_merchant_high_vol,High-volume commercial transactions with balanced inflow/outflow and established tenure,2026-06-01T00:00:00Z
+ACC_IND_00018,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_BUS_00019,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_WAL_00020,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_INT_00021,1,mule_layer_2_distributor,Layer-2 intermediary receiving rapid onward transfers from layer-1 aggregator,2026-06-01T00:00:00Z
+ACC_IND_00022,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_WAL_00023,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_WAL_00024,1,mule_layer_2_distributor,Layer-2 intermediary receiving rapid onward transfers from layer-1 aggregator,2026-06-01T00:00:00Z
+ACC_IND_00025,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00026,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_WAL_00027,1,mule_layer_2_distributor,Layer-2 intermediary receiving rapid onward transfers from layer-1 aggregator,2026-06-01T00:00:00Z
+ACC_BUS_00028,0,legitimate_merchant_high_vol,High-volume commercial transactions with balanced inflow/outflow and established tenure,2026-06-01T00:00:00Z
+ACC_WAL_00029,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_WAL_00030,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00031,1,mule_layer_1_aggregator,Direct fraud recipient acting as primary funnel/layer-1 aggregator,2026-06-01T00:00:00Z
+ACC_IND_00032,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00033,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_WAL_00034,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00035,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_INT_00036,1,mule_cashout_terminal,Fan-out recipient terminal account performing localized cash withdrawal,2026-06-01T00:00:00Z
+ACC_IND_00037,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00038,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00039,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00040,1,mule_layer_2_distributor,Layer-2 intermediary receiving rapid onward transfers from layer-1 aggregator,2026-06-01T00:00:00Z
+ACC_IND_00041,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00042,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00043,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_BUS_00044,0,legitimate_merchant_high_vol,High-volume commercial transactions with balanced inflow/outflow and established tenure,2026-06-01T00:00:00Z
+ACC_IND_00045,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00046,1,mule_layer_1_aggregator,Direct fraud recipient acting as primary funnel/layer-1 aggregator,2026-06-01T00:00:00Z
+ACC_IND_00047,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00048,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_BUS_00049,0,legitimate_merchant_high_vol,High-volume commercial transactions with balanced inflow/outflow and established tenure,2026-06-01T00:00:00Z
+ACC_IND_00050,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00051,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_BUS_00052,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00053,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_WAL_00054,1,mule_layer_2_distributor,Layer-2 intermediary receiving rapid onward transfers from layer-1 aggregator,2026-06-01T00:00:00Z
+ACC_IND_00055,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_WAL_00056,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00057,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00058,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_BUS_00059,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00060,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_BUS_00061,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00062,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00063,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00064,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00065,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00066,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00067,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_BUS_00068,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_BUS_00069,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_WAL_00070,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00071,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_WAL_00072,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00073,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00074,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00075,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00076,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00077,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_BUS_00078,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00079,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00080,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00081,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_INT_00082,1,mule_layer_1_aggregator,Direct fraud recipient acting as primary funnel/layer-1 aggregator,2026-06-01T00:00:00Z
+ACC_IND_00083,1,mule_cashout_terminal,Fan-out recipient terminal account performing localized cash withdrawal,2026-06-01T00:00:00Z
+ACC_IND_00084,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00085,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00086,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00087,1,mule_layer_1_aggregator,Direct fraud recipient acting as primary funnel/layer-1 aggregator,2026-06-01T00:00:00Z
+ACC_IND_00088,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00089,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00090,0,legitimate_merchant_high_vol,High-volume commercial transactions with balanced inflow/outflow and established tenure,2026-06-01T00:00:00Z
+ACC_IND_00091,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_WAL_00092,1,mule_cashout_terminal,Fan-out recipient terminal account performing localized cash withdrawal,2026-06-01T00:00:00Z
+ACC_IND_00093,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_WAL_00094,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00095,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_WAL_00096,1,mule_layer_1_aggregator,Direct fraud recipient acting as primary funnel/layer-1 aggregator,2026-06-01T00:00:00Z
+ACC_INT_00097,1,mule_cashout_terminal,Fan-out recipient terminal account performing localized cash withdrawal,2026-06-01T00:00:00Z
+ACC_IND_00098,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00099,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00100,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00101,1,mule_layer_1_aggregator,Direct fraud recipient acting as primary funnel/layer-1 aggregator,2026-06-01T00:00:00Z
+ACC_IND_00102,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00103,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_WAL_00104,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_BUS_00105,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_WAL_00106,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_BUS_00107,0,legitimate_merchant_high_vol,High-volume commercial transactions with balanced inflow/outflow and established tenure,2026-06-01T00:00:00Z
+ACC_INT_00108,1,mule_cashout_terminal,Fan-out recipient terminal account performing localized cash withdrawal,2026-06-01T00:00:00Z
+ACC_IND_00109,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_BUS_00110,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00111,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00112,1,mule_cashout_terminal,Fan-out recipient terminal account performing localized cash withdrawal,2026-06-01T00:00:00Z
+ACC_IND_00113,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00114,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00115,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00116,0,legitimate_merchant_high_vol,High-volume commercial transactions with balanced inflow/outflow and established tenure,2026-06-01T00:00:00Z
+ACC_BUS_00117,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00118,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00119,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00120,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_WAL_00121,1,mule_layer_2_distributor,Layer-2 intermediary receiving rapid onward transfers from layer-1 aggregator,2026-06-01T00:00:00Z
+ACC_BUS_00122,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_WAL_00123,1,mule_layer_1_aggregator,Direct fraud recipient acting as primary funnel/layer-1 aggregator,2026-06-01T00:00:00Z
+ACC_IND_00124,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_BUS_00125,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_BUS_00126,0,legitimate_merchant_high_vol,High-volume commercial transactions with balanced inflow/outflow and established tenure,2026-06-01T00:00:00Z
+ACC_IND_00127,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00128,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00129,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00130,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_BUS_00131,0,legitimate_merchant_high_vol,High-volume commercial transactions with balanced inflow/outflow and established tenure,2026-06-01T00:00:00Z
+ACC_IND_00132,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00133,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_WAL_00134,1,mule_layer_2_distributor,Layer-2 intermediary receiving rapid onward transfers from layer-1 aggregator,2026-06-01T00:00:00Z
+ACC_BUS_00135,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_WAL_00136,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_BUS_00137,0,legitimate_merchant_high_vol,High-volume commercial transactions with balanced inflow/outflow and established tenure,2026-06-01T00:00:00Z
+ACC_IND_00138,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00139,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00140,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_WAL_00141,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00142,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_BUS_00143,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00144,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_BUS_00145,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00146,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00147,1,mule_layer_1_aggregator,Direct fraud recipient acting as primary funnel/layer-1 aggregator,2026-06-01T00:00:00Z
+ACC_BUS_00148,0,legitimate_merchant_high_vol,High-volume commercial transactions with balanced inflow/outflow and established tenure,2026-06-01T00:00:00Z
+ACC_IND_00149,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_BUS_00150,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00151,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00152,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_WAL_00153,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_BUS_00154,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00155,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00156,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00157,1,mule_cashout_terminal,Fan-out recipient terminal account performing localized cash withdrawal,2026-06-01T00:00:00Z
+ACC_IND_00158,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00159,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00160,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_WAL_00161,1,mule_layer_1_aggregator,Direct fraud recipient acting as primary funnel/layer-1 aggregator,2026-06-01T00:00:00Z
+ACC_IND_00162,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_WAL_00163,1,mule_layer_1_aggregator,Direct fraud recipient acting as primary funnel/layer-1 aggregator,2026-06-01T00:00:00Z
+ACC_IND_00164,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00165,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00166,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_WAL_00167,1,mule_cashout_terminal,Fan-out recipient terminal account performing localized cash withdrawal,2026-06-01T00:00:00Z
+ACC_IND_00168,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_INT_00169,1,mule_layer_1_aggregator,Direct fraud recipient acting as primary funnel/layer-1 aggregator,2026-06-01T00:00:00Z
+ACC_INT_00170,0,legitimate_corporate_clearing,Authorized merchant aggregator/payroll routing clearing node,2026-06-01T00:00:00Z
+ACC_IND_00171,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00172,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00173,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_BUS_00174,0,legitimate_merchant_high_vol,High-volume commercial transactions with balanced inflow/outflow and established tenure,2026-06-01T00:00:00Z
+ACC_IND_00175,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00176,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00177,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00178,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00179,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00180,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_BUS_00181,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00182,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00183,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00184,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00185,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_BUS_00186,0,legitimate_merchant_high_vol,High-volume commercial transactions with balanced inflow/outflow and established tenure,2026-06-01T00:00:00Z
+ACC_IND_00187,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_WAL_00188,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00189,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_WAL_00190,1,mule_layer_1_aggregator,Direct fraud recipient acting as primary funnel/layer-1 aggregator,2026-06-01T00:00:00Z
+ACC_IND_00191,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00192,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00193,1,mule_layer_1_aggregator,Direct fraud recipient acting as primary funnel/layer-1 aggregator,2026-06-01T00:00:00Z
+ACC_IND_00194,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00195,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00196,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00197,1,mule_layer_2_distributor,Layer-2 intermediary receiving rapid onward transfers from layer-1 aggregator,2026-06-01T00:00:00Z
+ACC_IND_00198,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00199,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00200,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00201,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00202,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00203,1,mule_layer_1_aggregator,Direct fraud recipient acting as primary funnel/layer-1 aggregator,2026-06-01T00:00:00Z
+ACC_IND_00204,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00205,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_BUS_00206,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00207,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00208,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00209,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00210,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_WAL_00211,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00212,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00213,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00214,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00215,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00216,1,mule_layer_1_aggregator,Direct fraud recipient acting as primary funnel/layer-1 aggregator,2026-06-01T00:00:00Z
+ACC_IND_00217,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00218,1,mule_layer_2_distributor,Layer-2 intermediary receiving rapid onward transfers from layer-1 aggregator,2026-06-01T00:00:00Z
+ACC_BUS_00219,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00220,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_BUS_00221,0,legitimate_merchant_high_vol,High-volume commercial transactions with balanced inflow/outflow and established tenure,2026-06-01T00:00:00Z
+ACC_IND_00222,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00223,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_BUS_00224,0,legitimate_merchant_high_vol,High-volume commercial transactions with balanced inflow/outflow and established tenure,2026-06-01T00:00:00Z
+ACC_WAL_00225,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00226,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_BUS_00227,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00228,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00229,1,mule_layer_2_distributor,Layer-2 intermediary receiving rapid onward transfers from layer-1 aggregator,2026-06-01T00:00:00Z
+ACC_WAL_00230,1,mule_layer_2_distributor,Digital intermediary holding un-withdrawn fraud proceeds,2026-06-01T00:00:00Z
+ACC_BUS_00231,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00232,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_INT_00233,1,mule_layer_1_aggregator,Direct fraud recipient acting as primary funnel/layer-1 aggregator,2026-06-01T00:00:00Z
+ACC_IND_00234,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00235,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00236,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00237,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00238,1,mule_cashout_terminal,Fan-out recipient terminal account performing localized cash withdrawal,2026-06-01T00:00:00Z
+ACC_IND_00239,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_WAL_00240,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_BUS_00241,0,legitimate_merchant_high_vol,High-volume commercial transactions with balanced inflow/outflow and established tenure,2026-06-01T00:00:00Z
+ACC_IND_00242,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00243,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00244,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_BUS_00245,0,legitimate_merchant_high_vol,High-volume commercial transactions with balanced inflow/outflow and established tenure,2026-06-01T00:00:00Z
+ACC_IND_00246,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_INT_00247,1,mule_layer_1_aggregator,Direct fraud recipient acting as primary funnel/layer-1 aggregator,2026-06-01T00:00:00Z
+ACC_BUS_00248,0,legitimate_merchant_high_vol,High-volume commercial transactions with balanced inflow/outflow and established tenure,2026-06-01T00:00:00Z
+ACC_IND_00249,1,mule_layer_1_aggregator,Direct fraud recipient acting as primary funnel/layer-1 aggregator,2026-06-01T00:00:00Z
+ACC_IND_00250,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00251,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_BUS_00252,0,legitimate_merchant_high_vol,High-volume commercial transactions with balanced inflow/outflow and established tenure,2026-06-01T00:00:00Z
+ACC_IND_00253,1,mule_layer_2_distributor,Layer-2 intermediary receiving rapid onward transfers from layer-1 aggregator,2026-06-01T00:00:00Z
+ACC_IND_00254,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00255,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_BUS_00256,0,legitimate_merchant_high_vol,High-volume commercial transactions with balanced inflow/outflow and established tenure,2026-06-01T00:00:00Z
+ACC_IND_00257,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00258,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00259,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00260,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00261,1,mule_layer_2_distributor,Layer-2 intermediary receiving rapid onward transfers from layer-1 aggregator,2026-06-01T00:00:00Z
+ACC_IND_00262,1,mule_layer_2_distributor,Layer-2 intermediary receiving rapid onward transfers from layer-1 aggregator,2026-06-01T00:00:00Z
+ACC_WAL_00263,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00264,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00265,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_BUS_00266,0,legitimate_merchant_high_vol,High-volume commercial transactions with balanced inflow/outflow and established tenure,2026-06-01T00:00:00Z
+ACC_IND_00267,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00268,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00269,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00270,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_BUS_00271,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00272,1,mule_layer_1_aggregator,Direct fraud recipient acting as primary funnel/layer-1 aggregator,2026-06-01T00:00:00Z
+ACC_INT_00273,1,mule_layer_1_aggregator,Direct fraud recipient acting as primary funnel/layer-1 aggregator,2026-06-01T00:00:00Z
+ACC_IND_00274,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_WAL_00275,1,mule_layer_1_aggregator,Direct fraud recipient acting as primary funnel/layer-1 aggregator,2026-06-01T00:00:00Z
+ACC_IND_00276,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00277,1,mule_cashout_terminal,Fan-out recipient terminal account performing localized cash withdrawal,2026-06-01T00:00:00Z
+ACC_BUS_00278,0,legitimate_merchant_high_vol,High-volume commercial transactions with balanced inflow/outflow and established tenure,2026-06-01T00:00:00Z
+ACC_IND_00279,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00280,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00281,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00282,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00283,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00284,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00285,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00286,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00287,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00288,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00289,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00290,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_BUS_00291,0,legitimate_merchant_high_vol,High-volume commercial transactions with balanced inflow/outflow and established tenure,2026-06-01T00:00:00Z
+ACC_IND_00292,1,mule_layer_1_aggregator,Direct fraud recipient acting as primary funnel/layer-1 aggregator,2026-06-01T00:00:00Z
+ACC_IND_00293,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00294,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00295,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00296,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00297,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00298,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_IND_00299,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_BUS_00300,0,legitimate_individual,Standard retail customer with normal personal utility and payroll transfers,2026-06-01T00:00:00Z
+ACC_ATM_TERMINAL,0,atm_cash_dispenser_terminal,Synthetic bank ATM terminal account for physical cash settlement,2026-06-01T00:00:00Z

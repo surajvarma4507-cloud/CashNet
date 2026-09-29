@@ -1,0 +1,90 @@
+{
+  "model_a_occurrence": {
+    "model_type": "binary_classification",
+    "features": [
+      "complaint_delay_minutes",
+      "minutes_since_last_transaction",
+      "incoming_transaction_count_1h",
+      "outgoing_transaction_count_1h",
+      "incoming_transaction_count_24h",
+      "outgoing_transaction_count_24h",
+      "total_inflow_24h",
+      "total_outflow_24h",
+      "estimated_remaining_amount",
+      "unique_incoming_sources_24h",
+      "linked_account_count",
+      "linked_case_count",
+      "historical_cashout_count",
+      "nearest_location_distance_km",
+      "hour_of_day",
+      "day_of_week",
+      "account_risk_score",
+      "network_depth",
+      "network_branching_factor",
+      "transaction_count",
+      "unique_account_count",
+      "cashout_count",
+      "total_cashout_amount",
+      "distinct_cashout_locations",
+      "average_transaction_amount",
+      "max_transaction_amount"
+    ],
+    "target": "has_future_cashout",
+    "sample_counts": {
+      "train": 1906,
+      "test": 477
+    }
+  },
+  "model_b_location_ranking": {
+    "model_type": "pointwise_ranking",
+    "features": [
+      "distance_from_account_km",
+      "historical_cashout_count",
+      "historical_case_count",
+      "historical_location_risk"
+    ],
+    "target": "is_actual_target (binary match per candidate)",
+    "sample_counts": {
+      "train_candidates": 10920,
+      "train_snapshots": 1560,
+      "test_candidates": 2674,
+      "test_snapshots": 382
+    }
+  },
+  "model_c_timing_regressor": {
+    "model_type": "regression",
+    "features": [
+      "complaint_delay_minutes",
+      "minutes_since_last_transaction",
+      "incoming_transaction_count_1h",
+      "outgoing_transaction_count_1h",
+      "incoming_transaction_count_24h",
+      "outgoing_transaction_count_24h",
+      "total_inflow_24h",
+      "total_outflow_24h",
+      "estimated_remaining_amount",
+      "unique_incoming_sources_24h",
+      "linked_account_count",
+      "linked_case_count",
+      "historical_cashout_count",
+      "nearest_location_distance_km",
+      "hour_of_day",
+      "day_of_week",
+      "account_risk_score",
+      "network_depth",
+      "network_branching_factor",
+      "transaction_count",
+      "unique_account_count",
+      "cashout_count",
+      "total_cashout_amount",
+      "distinct_cashout_locations",
+      "average_transaction_amount",
+      "max_transaction_amount"
+    ],
+    "target": "actual_minutes_until_cashout",
+    "sample_counts": {
+      "train": 1560,
+      "test": 382
+    }
+  }
+}

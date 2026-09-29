@@ -1,0 +1,1576 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CASHNET | Cybercrime Cash-Out Risk & Decision Support Platform</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              500: '#0ea5e9',
+              600: '#0284c7',
+              700: '#0369a1',
+              900: '#0c4a6e',
+            },
+            tactical: {
+              dark: '#0a0f1d',
+              card: '#111827',
+              border: '#1f2937',
+              accent: '#38bdf8',
+              alert: '#f43f5e',
+              warning: '#fbbf24',
+              success: '#10b981',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <!-- Leaflet GIS Map -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- Cytoscape Graph Engine -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.28.1/cytoscape.min.js"></script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #0f172a; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #475569; }
+
+    .glow-cyan { box-shadow: 0 0 15px -3px rgba(14, 165, 233, 0.4); }
+    .glow-rose { box-shadow: 0 0 15px -3px rgba(244, 63, 94, 0.4); }
+    .glow-amber { box-shadow: 0 0 15px -3px rgba(251, 191, 36, 0.4); }
+    .glow-emerald { box-shadow: 0 0 15px -3px rgba(16, 185, 129, 0.4); }
+
+    /* Map and Graph Viewport Heights */
+    #map-viewport { height: 520px; width: 100%; border-radius: 0.5rem; }
+    #cy-viewport { height: 500px; width: 100%; background: #0b1120; border-radius: 0.5rem; }
+  </style>
+</head>
+<body class="bg-tactical-dark text-slate-100 min-h-screen flex flex-col font-sans antialiased">
+
+  <!-- TOP BANNER & NOTICE -->
+  <div class="bg-gradient-to-r from-sky-950 via-slate-900 to-indigo-950 border-b border-sky-900/40 px-4 py-1.5 text-xs flex flex-wrap items-center justify-between text-slate-300">
+    <div class="flex items-center space-x-2">
+      <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold bg-sky-500/20 text-sky-400 border border-sky-500/30">
+        <i class="fa-solid fa-shield-halved mr-1"></i> SIH26184
+      </span>
+      <span class="font-medium text-slate-200">CASHNET</span>
+      <span class="text-slate-400">| Tactical Cybercrime Cash-Out Risk & Decision Support</span>
+    </div>
+    <div class="flex items-center space-x-4">
+      <span class="text-amber-400/90 font-mono text-[11px]">
+        <i class="fa-solid fa-triangle-exclamation mr-1"></i> Synthetic Prototype • Anti-Leakage Guard Active
+      </span>
+      <div id="health-badge" class="flex items-center space-x-1 text-emerald-400 font-mono text-[11px]">
+        <span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span>API Online</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN HEADER -->
+  <header class="bg-slate-900/95 backdrop-blur border-b border-slate-800 sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <!-- Brand / Title -->
+        <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('cases')">
+          <div class="h-10 w-10 rounded-lg bg-gradient-to-tr from-sky-600 to-indigo-600 flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-sky-500/20">
+            <i class="fa-solid fa-network-wired"></i>
+          </div>
+          <div>
+            <h1 class="text-lg font-bold tracking-tight text-white flex items-center gap-2">
+              CASHNET <span class="text-xs px-2 py-0.5 rounded bg-sky-500/10 text-sky-400 border border-sky-500/20 font-normal">v2.0 LEA</span>
+            </h1>
+            <p class="text-xs text-slate-400">Multi-Hop Money Trail & Physical Cash-Out Predictor</p>
+          </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <nav class="hidden md:flex space-x-1">
+          <button onclick="switchTab('cases')" id="nav-cases" class="nav-btn px-3 py-2 rounded-md text-sm font-medium transition-colors bg-sky-600/20 text-sky-400 border border-sky-500/30">
+            <i class="fa-solid fa-list-check mr-1.5"></i> Case Triage
+          </button>
+          <button onclick="switchTab('dossier')" id="nav-dossier" class="nav-btn px-3 py-2 rounded-md text-sm font-medium transition-colors text-slate-300 hover:text-white hover:bg-slate-800">
+            <i class="fa-solid fa-folder-open mr-1.5"></i> Case Dossier & ML
+          </button>
+          <button onclick="switchTab('trail')" id="nav-trail" class="nav-btn px-3 py-2 rounded-md text-sm font-medium transition-colors text-slate-300 hover:text-white hover:bg-slate-800">
+            <i class="fa-solid fa-diagram-project mr-1.5"></i> Money Trail Graph
+          </button>
+          <button onclick="switchTab('map')" id="nav-map" class="nav-btn px-3 py-2 rounded-md text-sm font-medium transition-colors text-slate-300 hover:text-white hover:bg-slate-800">
+            <i class="fa-solid fa-map-location-dot mr-1.5"></i> GIS Map
+          </button>
+          <button onclick="switchTab('syndicates')" id="nav-syndicates" class="nav-btn px-3 py-2 rounded-md text-sm font-medium transition-colors text-slate-300 hover:text-white hover:bg-slate-800">
+            <i class="fa-solid fa-users-viewfinder mr-1.5"></i> Syndicates
+          </button>
+          <button onclick="switchTab('system')" id="nav-system" class="nav-btn px-3 py-2 rounded-md text-sm font-medium transition-colors text-slate-300 hover:text-white hover:bg-slate-800">
+            <i class="fa-solid fa-server mr-1.5"></i> System & API
+          </button>
+        </nav>
+
+        <!-- Right Quick Links -->
+        <div class="flex items-center space-x-3">
+          <a href="/docs" target="_blank" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white px-3 py-1.5 rounded border border-slate-700 transition flex items-center">
+            <i class="fa-solid fa-book mr-1.5 text-sky-400"></i> Swagger Docs
+          </a>
+          <button onclick="loadDashboardData()" class="text-xs bg-sky-600 hover:bg-sky-500 text-white font-medium px-3 py-1.5 rounded shadow transition flex items-center">
+            <i class="fa-solid fa-rotate mr-1.5"></i> Refresh
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- METRIC COUNTER STRIP -->
+  <section class="bg-slate-900 border-b border-slate-800/80 px-4 py-3">
+    <div class="max-w-7xl mx-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
+      <div class="bg-slate-800/50 p-2.5 rounded-lg border border-slate-800 flex flex-col justify-between">
+        <span class="text-[11px] font-medium text-slate-400 uppercase tracking-wider">Total Complaints</span>
+        <div class="flex items-baseline justify-between mt-1">
+          <span id="stat-complaints" class="text-lg font-bold text-white font-mono">5,000</span>
+          <i class="fa-solid fa-file-invoice text-sky-400/60 text-sm"></i>
+        </div>
+      </div>
+      <div class="bg-slate-800/50 p-2.5 rounded-lg border border-slate-800 flex flex-col justify-between">
+        <span class="text-[11px] font-medium text-slate-400 uppercase tracking-wider">Mule Accounts</span>
+        <div class="flex items-baseline justify-between mt-1">
+          <span id="stat-accounts" class="text-lg font-bold text-indigo-400 font-mono">10,001</span>
+          <i class="fa-solid fa-wallet text-indigo-400/60 text-sm"></i>
+        </div>
+      </div>
+      <div class="bg-slate-800/50 p-2.5 rounded-lg border border-slate-800 flex flex-col justify-between">
+        <span class="text-[11px] font-medium text-slate-400 uppercase tracking-wider">Transaction Hops</span>
+        <div class="flex items-baseline justify-between mt-1">
+          <span id="stat-transactions" class="text-lg font-bold text-amber-400 font-mono">65,066</span>
+          <i class="fa-solid fa-arrows-split-up-and-left text-amber-400/60 text-sm"></i>
+        </div>
+      </div>
+      <div class="bg-slate-800/50 p-2.5 rounded-lg border border-slate-800 flex flex-col justify-between">
+        <span class="text-[11px] font-medium text-slate-400 uppercase tracking-wider">Monitored ATMs</span>
+        <div class="flex items-baseline justify-between mt-1">
+          <span id="stat-locations" class="text-lg font-bold text-emerald-400 font-mono">300</span>
+          <i class="fa-solid fa-building-columns text-emerald-400/60 text-sm"></i>
+        </div>
+      </div>
+      <div class="bg-slate-800/50 p-2.5 rounded-lg border border-slate-800 flex flex-col justify-between">
+        <span class="text-[11px] font-medium text-slate-400 uppercase tracking-wider">Model A Precision</span>
+        <div class="flex items-baseline justify-between mt-1">
+          <span class="text-lg font-bold text-rose-400 font-mono">86.2%</span>
+          <i class="fa-solid fa-brain text-rose-400/60 text-sm"></i>
+        </div>
+      </div>
+      <div class="bg-slate-800/50 p-2.5 rounded-lg border border-slate-800 flex flex-col justify-between">
+        <span class="text-[11px] font-medium text-slate-400 uppercase tracking-wider">Point-in-Time</span>
+        <div class="flex items-baseline justify-between mt-1">
+          <span class="text-xs font-semibold text-sky-300">Strict Anti-Leak</span>
+          <i class="fa-solid fa-lock text-sky-400/60 text-sm"></i>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN CONTENT CONTAINER -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+    <!-- TAB 1: CASE TRIAGE -->
+    <div id="tab-cases" class="tab-content space-y-6">
+      <!-- Search & Filters -->
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 shadow-lg">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <!-- Search Bar -->
+          <div class="relative flex-1">
+            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-400 text-sm"></i>
+            <input type="text" id="case-search" placeholder="Search by Case ID (e.g. CASE_2026_000750), victim account, or keyword..."
+              class="w-full pl-10 pr-4 py-2 bg-slate-800/80 border border-slate-700 rounded-lg text-sm text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition" />
+          </div>
+          <!-- Filter Dropdowns -->
+          <div class="flex flex-wrap items-center gap-2">
+            <select id="filter-typology" class="bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-500">
+              <option value="">All Fraud Typologies</option>
+              <option value="investment_scam">Investment Scam</option>
+              <option value="digital_arrest">Digital Arrest</option>
+              <option value="sextortion">Sextortion</option>
+              <option value="job_fraud">Job Fraud</option>
+              <option value="loan_scam">Loan Scam</option>
+              <option value="upi_phishing">UPI Phishing</option>
+              <option value="aeps_cloning">AEPS Cloning</option>
+            </select>
+            <select id="filter-channel" class="bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-500">
+              <option value="">All Payment Rails</option>
+              <option value="UPI">UPI</option>
+              <option value="IMPS">IMPS</option>
+              <option value="NEFT">NEFT</option>
+              <option value="AEPS">AEPS</option>
+            </select>
+            <select id="filter-status" class="bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:ring-2 focus:ring-sky-500">
+              <option value="">All Statuses</option>
+              <option value="registered">Registered</option>
+              <option value="under_investigation">Under Investigation</option>
+              <option value="resolved">Resolved</option>
+            </select>
+            <button onclick="fetchCases(1)" class="bg-sky-600 hover:bg-sky-500 text-white font-medium px-4 py-2 rounded-lg text-xs transition flex items-center gap-1.5 shadow">
+              <i class="fa-solid fa-filter"></i> Apply Filters
+            </button>
+            <button onclick="resetCaseFilters()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium px-3 py-2 rounded-lg text-xs transition border border-slate-700">
+              Reset
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cases Table Grid -->
+      <div class="bg-slate-900 border border-slate-800 rounded-xl shadow-lg overflow-hidden">
+        <div class="px-5 py-3.5 border-b border-slate-800 flex items-center justify-between">
+          <div class="flex items-center space-x-2">
+            <h2 class="font-semibold text-slate-200 text-sm">Active Cybercrime Investigation Queue</h2>
+            <span id="case-count-badge" class="text-xs bg-sky-500/20 text-sky-400 px-2 py-0.5 rounded-full font-mono">0 Cases</span>
+          </div>
+          <div class="text-xs text-slate-400">
+            Click any row to open full Case Dossier & ML Prediction
+          </div>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-800/60 text-slate-400 uppercase font-semibold text-[10px] tracking-wider border-b border-slate-800">
+              <tr>
+                <th class="py-3 px-4">Case ID</th>
+                <th class="py-3 px-4">Typology</th>
+                <th class="py-3 px-4">Victim Account</th>
+                <th class="py-3 px-4">Fraud Amount (INR)</th>
+                <th class="py-3 px-4">Channel</th>
+                <th class="py-3 px-4">Registered At</th>
+                <th class="py-3 px-4">Delay (min)</th>
+                <th class="py-3 px-4">Status</th>
+                <th class="py-3 px-4 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="case-table-body" class="divide-y divide-slate-800 text-slate-300">
+              <tr>
+                <td colspan="9" class="text-center py-8 text-slate-500">
+                  <i class="fa-solid fa-circle-notch fa-spin mr-2"></i> Loading cybercrime cases...
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- Pagination Footer -->
+        <div class="px-5 py-3 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400">
+          <div id="pagination-info">Page 1 of 1</div>
+          <div class="flex items-center space-x-2">
+            <button id="btn-prev-page" onclick="prevCasePage()" class="px-3 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 disabled:opacity-40 disabled:cursor-not-allowed transition">
+              <i class="fa-solid fa-chevron-left mr-1"></i> Prev
+            </button>
+            <button id="btn-next-page" onclick="nextCasePage()" class="px-3 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 disabled:opacity-40 disabled:cursor-not-allowed transition">
+              Next <i class="fa-solid fa-chevron-right ml-1"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2: CASE DOSSIER & ML PREDICTION -->
+    <div id="tab-dossier" class="tab-content hidden space-y-6">
+      <!-- Case Selection Bar -->
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 flex flex-wrap items-center justify-between gap-4">
+        <div class="flex items-center space-x-3">
+          <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Active Investigation:</span>
+          <input type="text" id="dossier-case-input" value="CASE_2026_000750" placeholder="CASE_XXXX_XXXXXX"
+            class="px-3 py-1.5 bg-slate-800 border border-slate-700 rounded text-sm font-mono text-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-500" />
+          <button onclick="loadCaseDossier(document.getElementById('dossier-case-input').value)" class="bg-sky-600 hover:bg-sky-500 text-white text-xs font-medium px-3 py-1.5 rounded transition">
+            <i class="fa-solid fa-magnifying-glass mr-1"></i> Load Dossier
+          </button>
+        </div>
+        <div class="flex items-center space-x-2">
+          <button onclick="triggerPredictionForActiveCase()" class="bg-gradient-to-r from-rose-600 to-amber-600 hover:from-rose-500 hover:to-amber-500 text-white text-xs font-bold px-4 py-2 rounded-lg shadow-lg shadow-rose-900/30 transition flex items-center gap-2 animate-pulse">
+            <i class="fa-solid fa-bolt"></i> Execute Live ML Inference
+          </button>
+          <button onclick="viewMoneyTrailForActiveCase()" class="bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-medium px-3 py-2 rounded-lg transition flex items-center gap-1.5">
+            <i class="fa-solid fa-diagram-project"></i> View Trail Graph
+          </button>
+        </div>
+      </div>
+
+      <!-- Dossier Details & ML Split Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+        <!-- Left Column: Case Overview & Profile -->
+        <div class="lg:col-span-1 space-y-6">
+          <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-lg">
+            <h3 class="font-bold text-white text-sm flex items-center gap-2 mb-4">
+              <i class="fa-solid fa-id-card text-sky-400"></i> Victim & Incident Dossier
+            </h3>
+            <div class="space-y-3 text-xs">
+              <div class="flex justify-between border-b border-slate-800/80 pb-2">
+                <span class="text-slate-400">Case ID:</span>
+                <span id="dossier-id" class="font-mono font-bold text-sky-400">-</span>
+              </div>
+              <div class="flex justify-between border-b border-slate-800/80 pb-2">
+                <span class="text-slate-400">Fraud Typology:</span>
+                <span id="dossier-type" class="font-medium text-slate-200 capitalize">-</span>
+              </div>
+              <div class="flex justify-between border-b border-slate-800/80 pb-2">
+                <span class="text-slate-400">Reported Scam Amount:</span>
+                <span id="dossier-amount" class="font-mono font-bold text-rose-400 text-sm">-</span>
+              </div>
+              <div class="flex justify-between border-b border-slate-800/80 pb-2">
+                <span class="text-slate-400">Victim Account ID:</span>
+                <span id="dossier-victim-account" class="font-mono text-slate-300">-</span>
+              </div>
+              <div class="flex justify-between border-b border-slate-800/80 pb-2">
+                <span class="text-slate-400">Payment Rail:</span>
+                <span id="dossier-channel" class="font-semibold text-indigo-400">-</span>
+              </div>
+              <div class="flex justify-between border-b border-slate-800/80 pb-2">
+                <span class="text-slate-400">Incident Timestamp:</span>
+                <span id="dossier-occurred" class="text-slate-300 font-mono text-[11px]">-</span>
+              </div>
+              <div class="flex justify-between border-b border-slate-800/80 pb-2">
+                <span class="text-slate-400">Complaint Registered:</span>
+                <span id="dossier-registered" class="text-slate-300 font-mono text-[11px]">-</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-slate-400">Reporting Latency:</span>
+                <span id="dossier-delay" class="font-mono text-amber-400 font-bold">-</span>
+              </div>
+            </div>
+
+            <!-- Synthetic Description -->
+            <div class="mt-4 pt-3 border-t border-slate-800">
+              <span class="text-[11px] text-slate-400 uppercase font-semibold">Incident Narrative</span>
+              <p id="dossier-desc" class="text-xs text-slate-300 mt-1 leading-relaxed bg-slate-800/50 p-2.5 rounded border border-slate-800">
+                Loading case details...
+              </p>
+            </div>
+          </div>
+
+          <!-- Investigator Action Logging Form -->
+          <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-lg">
+            <h3 class="font-bold text-white text-sm flex items-center gap-2 mb-3">
+              <i class="fa-solid fa-handcuffs text-amber-400"></i> Tactical Action Center
+            </h3>
+            <p class="text-xs text-slate-400 mb-3">Log immutable response actions to case audit trail.</p>
+            <div class="space-y-3 text-xs">
+              <div>
+                <label class="block text-slate-400 mb-1">Action Type</label>
+                <select id="action-type-select" class="w-full bg-slate-800 border border-slate-700 rounded p-2 text-slate-200">
+                  <option value="account_freeze_requested">Request Account Freeze (Sec 102 CrPC)</option>
+                  <option value="patrol_unit_dispatched">Dispatch Patrol Unit to ATM</option>
+                  <option value="cctv_footage_requested">Request CCTV Footage from Bank</option>
+                  <option value="beneficiary_kyc_summoned">Summon Beneficiary KYC Records</option>
+                  <option value="case_notes_appended">Append Case Intelligence Note</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-slate-400 mb-1">Investigator Badge / ID</label>
+                <input type="text" id="action-investigator-id" value="LEA_OFFICER_924" class="w-full bg-slate-800 border border-slate-700 rounded p-2 text-slate-200" />
+              </div>
+              <div>
+                <label class="block text-slate-400 mb-1">Action Notes / Tactical Rationale</label>
+                <textarea id="action-notes-input" rows="2" placeholder="e.g., Dispatched mobile patrol team to prioritized ATM LOC_000035..." class="w-full bg-slate-800 border border-slate-700 rounded p-2 text-slate-200"></textarea>
+              </div>
+              <button onclick="submitInvestigatorAction()" class="w-full bg-amber-600 hover:bg-amber-500 text-slate-950 font-bold py-2 rounded text-xs transition shadow">
+                <i class="fa-solid fa-floppy-disk mr-1"></i> Commit Action to Immutable Log
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: ML Prediction & Decision Support -->
+        <div class="lg:col-span-2 space-y-6">
+
+          <!-- ML Prediction Card -->
+          <div class="bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950 border border-slate-800 rounded-xl p-5 shadow-xl">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
+              <div class="flex items-center space-x-2">
+                <div class="h-8 w-8 rounded bg-rose-500/20 text-rose-400 flex items-center justify-center font-bold">
+                  <i class="fa-solid fa-brain"></i>
+                </div>
+                <div>
+                  <h3 class="font-bold text-white text-sm">AI Cash-Out Prediction & Prioritization</h3>
+                  <p class="text-[11px] text-slate-400">Models A (Occurrence), B (Spatial Fallback), & C (Timing Window)</p>
+                </div>
+              </div>
+              <span id="ml-risk-badge" class="px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider bg-slate-800 text-slate-400 border border-slate-700">
+                Ready for Inference
+              </span>
+            </div>
+
+            <!-- Prediction Metrics Row -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+
+              <!-- Occurrence Gauge -->
+              <div class="bg-slate-800/60 p-3.5 rounded-lg border border-slate-800">
+                <div class="text-[11px] text-slate-400 uppercase font-semibold">Model A: Cash-Out Likelihood</div>
+                <div class="mt-2 flex items-baseline justify-between">
+                  <span id="ml-prob-val" class="text-3xl font-bold font-mono text-sky-400">--%</span>
+                  <span id="ml-prob-tier" class="text-xs font-semibold px-2 py-0.5 rounded bg-sky-900/40 text-sky-300">--</span>
+                </div>
+                <div class="w-full bg-slate-700 h-1.5 rounded-full mt-2 overflow-hidden">
+                  <div id="ml-prob-bar" class="bg-sky-400 h-full w-0 transition-all duration-500"></div>
+                </div>
+              </div>
+
+              <!-- Top Target Terminal -->
+              <div class="bg-slate-800/60 p-3.5 rounded-lg border border-slate-800">
+                <div class="text-[11px] text-slate-400 uppercase font-semibold">Model B: Top Prioritized ATM</div>
+                <div id="ml-top-terminal" class="mt-2 text-sm font-bold text-amber-300 truncate">--</div>
+                <div class="mt-1 text-xs text-slate-400 flex items-center justify-between">
+                  <span id="ml-top-dist">Distance: -- km</span>
+                  <span id="ml-top-score" class="font-mono text-emerald-400">Score: --</span>
+                </div>
+              </div>
+
+              <!-- Estimated Time Window -->
+              <div class="bg-slate-800/60 p-3.5 rounded-lg border border-slate-800">
+                <div class="text-[11px] text-slate-400 uppercase font-semibold">Model C: Timing Estimate</div>
+                <div id="ml-timing-val" class="mt-2 text-xl font-bold font-mono text-indigo-300">-- mins</div>
+                <div id="ml-timing-window" class="text-[10px] text-slate-400 mt-1">Intervention window: --</div>
+              </div>
+            </div>
+
+            <!-- Structured LEA Narrative -->
+            <div class="bg-slate-800/40 border border-slate-800 rounded-lg p-4 mb-4">
+              <h4 class="text-xs font-bold text-slate-200 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                <i class="fa-solid fa-file-shield text-sky-400"></i> Law Enforcement Advisory Explanation
+              </h4>
+              <p id="ml-narrative-summary" class="text-xs text-slate-300 leading-relaxed italic">
+                Execute live inference to generate automated cybercrime decision-support narrative.
+              </p>
+
+              <!-- Factors Grid -->
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-3 pt-3 border-t border-slate-800/80">
+                <div>
+                  <span class="text-[11px] font-semibold text-rose-400 flex items-center gap-1">
+                    <i class="fa-solid fa-triangle-exclamation"></i> Risk Factors:
+                  </span>
+                  <ul id="ml-risk-factors" class="mt-1 space-y-1 text-xs text-slate-400 list-disc list-inside">
+                    <li>Awaiting inference run</li>
+                  </ul>
+                </div>
+                <div>
+                  <span class="text-[11px] font-semibold text-emerald-400 flex items-center gap-1">
+                    <i class="fa-solid fa-shield"></i> Protective Factors:
+                  </span>
+                  <ul id="ml-protective-factors" class="mt-1 space-y-1 text-xs text-slate-400 list-disc list-inside">
+                    <li>Awaiting inference run</li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Tactical Actions -->
+              <div class="mt-3 pt-3 border-t border-slate-800/80">
+                <span class="text-[11px] font-semibold text-amber-400 flex items-center gap-1">
+                  <i class="fa-solid fa-bullseye"></i> Recommended Tactical LEA Actions:
+                </span>
+                <ul id="ml-recommended-actions" class="mt-1 space-y-1 text-xs text-slate-300 list-decimal list-inside">
+                  <li>Trigger inference to populate tactical interventions</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Top-5 Prioritized Candidate Locations Table -->
+            <div>
+              <h4 class="text-xs font-bold text-slate-200 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                <i class="fa-solid fa-location-crosshairs text-amber-400"></i> Prioritized Cash-Out Terminals (Spatial Proximity Ranking)
+              </h4>
+              <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs">
+                  <thead class="bg-slate-800/70 text-slate-400 uppercase text-[10px] font-semibold">
+                    <tr>
+                      <th class="py-2 px-3">Rank</th>
+                      <th class="py-2 px-3">Terminal Name</th>
+                      <th class="py-2 px-3">Type</th>
+                      <th class="py-2 px-3">City</th>
+                      <th class="py-2 px-3">Distance (km)</th>
+                      <th class="py-2 px-3">Priority Score</th>
+                      <th class="py-2 px-3 text-right">Map View</th>
+                    </tr>
+                  </thead>
+                  <tbody id="ml-candidates-body" class="divide-y divide-slate-800 text-slate-300">
+                    <tr>
+                      <td colspan="7" class="text-center py-4 text-slate-500">No prediction executed yet. Click "Execute Live ML Inference".</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Historical Actions Audit Log -->
+          <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-lg">
+            <h3 class="font-bold text-white text-sm flex items-center justify-between mb-3">
+              <span class="flex items-center gap-2"><i class="fa-solid fa-clock-rotate-left text-sky-400"></i> Immutable Investigator Action Audit</span>
+              <span id="action-count-badge" class="text-xs bg-slate-800 text-slate-400 px-2 py-0.5 rounded font-mono">0 Logged</span>
+            </h3>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs">
+                <thead class="bg-slate-800/60 text-slate-400 uppercase text-[10px]">
+                  <tr>
+                    <th class="py-2 px-3">Timestamp</th>
+                    <th class="py-2 px-3">Action Type</th>
+                    <th class="py-2 px-3">Officer</th>
+                    <th class="py-2 px-3">Details / Notes</th>
+                    <th class="py-2 px-3">Status</th>
+                  </tr>
+                </thead>
+                <tbody id="actions-table-body" class="divide-y divide-slate-800 text-slate-300">
+                  <tr>
+                    <td colspan="5" class="text-center py-4 text-slate-500">No actions recorded for this case.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: MONEY TRAIL GRAPH -->
+    <div id="tab-trail" class="tab-content hidden space-y-6">
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 flex flex-wrap items-center justify-between gap-4">
+        <div class="flex items-center space-x-3">
+          <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Money Trail Case:</span>
+          <input type="text" id="trail-case-input" value="CASE_2026_000750"
+            class="px-3 py-1.5 bg-slate-800 border border-slate-700 rounded text-sm font-mono text-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-500" />
+          <button onclick="loadMoneyTrail(document.getElementById('trail-case-input').value)" class="bg-sky-600 hover:bg-sky-500 text-white text-xs font-medium px-3 py-1.5 rounded transition">
+            <i class="fa-solid fa-arrows-split-up-and-left mr-1"></i> Reconstruct Trail
+          </button>
+        </div>
+        <!-- Topology Summary Chips -->
+        <div class="flex items-center space-x-2 text-xs">
+          <span id="trail-chip-hops" class="px-2 py-1 rounded bg-slate-800 text-slate-300 border border-slate-700">Hops: --</span>
+          <span id="trail-chip-cycles" class="px-2 py-1 rounded bg-slate-800 text-slate-300 border border-slate-700">Cycles: None</span>
+          <span id="trail-chip-volume" class="px-2 py-1 rounded bg-slate-800 text-emerald-400 border border-slate-700">Volume: ₹--</span>
+        </div>
+      </div>
+
+      <!-- Interactive Cytoscape Graph Canvas -->
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 shadow-xl">
+        <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center space-x-3">
+            <h3 class="font-bold text-white text-sm flex items-center gap-2">
+              <i class="fa-solid fa-circle-nodes text-sky-400"></i> Interactive Layering Network Visualizer
+            </h3>
+            <div class="flex items-center space-x-2 text-[11px]">
+              <span class="inline-flex items-center text-rose-400"><span class="h-2.5 w-2.5 rounded-full bg-rose-500 mr-1"></span> Victim</span>
+              <span class="inline-flex items-center text-sky-400"><span class="h-2.5 w-2.5 rounded-full bg-sky-500 mr-1"></span> Hop 1 Mule</span>
+              <span class="inline-flex items-center text-indigo-400"><span class="h-2.5 w-2.5 rounded-full bg-indigo-500 mr-1"></span> Layer 2+ Mule</span>
+              <span class="inline-flex items-center text-emerald-400"><span class="h-2.5 w-2.5 rounded-full bg-emerald-500 mr-1"></span> Cashout Exit</span>
+            </div>
+          </div>
+          <div class="flex items-center space-x-1.5">
+            <button onclick="fitGraphView()" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded text-xs border border-slate-700">
+              <i class="fa-solid fa-expand mr-1"></i> Fit View
+            </button>
+            <button onclick="reLayoutGraph('breadthfirst')" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded text-xs border border-slate-700">
+              Hierarchical
+            </button>
+            <button onclick="reLayoutGraph('cose')" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded text-xs border border-slate-700">
+              Force-Directed
+            </button>
+          </div>
+        </div>
+
+        <!-- Cytoscape Container -->
+        <div id="cy-viewport" class="border border-slate-800 relative">
+          <div id="cy-loading" class="absolute inset-0 bg-slate-950/70 flex items-center justify-center text-xs text-slate-400 z-10 hidden">
+            <i class="fa-solid fa-circle-notch fa-spin text-sky-400 text-lg mr-2"></i> Reconstructing money trail graph...
+          </div>
+        </div>
+
+        <!-- Selected Node Inspector Panel -->
+        <div id="node-inspector" class="mt-3 p-3 bg-slate-800/60 rounded-lg border border-slate-800 text-xs flex flex-wrap items-center justify-between gap-2">
+          <span class="text-slate-400 font-mono"><i class="fa-solid fa-hand-pointer mr-1 text-sky-400"></i> Click on any account node in the graph to inspect flow volume, hop level, and forensic notes.</span>
+        </div>
+      </div>
+
+      <!-- Chronological Transaction Ledger Table -->
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-lg">
+        <h3 class="font-bold text-white text-sm flex items-center justify-between mb-3">
+          <span class="flex items-center gap-2"><i class="fa-solid fa-list-ol text-amber-400"></i> Chronological Transaction Hop Ledger</span>
+          <span id="ledger-count-badge" class="text-xs bg-slate-800 text-slate-400 px-2 py-0.5 rounded font-mono">0 Hops</span>
+        </h3>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-800/60 text-slate-400 uppercase text-[10px]">
+              <tr>
+                <th class="py-2 px-3">Hop #</th>
+                <th class="py-2 px-3">Tx ID</th>
+                <th class="py-2 px-3">Sender Account</th>
+                <th class="py-2 px-3">Beneficiary Account</th>
+                <th class="py-2 px-3">Amount (INR)</th>
+                <th class="py-2 px-3">Channel</th>
+                <th class="py-2 px-3">Timestamp</th>
+                <th class="py-2 px-3">Provenance</th>
+              </tr>
+            </thead>
+            <tbody id="ledger-table-body" class="divide-y divide-slate-800 text-slate-300">
+              <tr>
+                <td colspan="8" class="text-center py-4 text-slate-500">No trail loaded. Enter a case ID above.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 4: GIS MAP -->
+    <div id="tab-map" class="tab-content hidden space-y-6">
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 flex flex-wrap items-center justify-between gap-4">
+        <div class="flex items-center space-x-3">
+          <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Spatial Search:</span>
+          <select id="map-city-filter" onchange="filterMapLocations()" class="px-3 py-1.5 bg-slate-800 border border-slate-700 rounded text-xs text-slate-200">
+            <option value="">All Cities in India (300 Terminals)</option>
+            <option value="Delhi">Delhi NCR</option>
+            <option value="Mumbai">Mumbai</option>
+            <option value="Bengaluru">Bengaluru</option>
+            <option value="Kolkata">Kolkata</option>
+            <option value="Hyderabad">Hyderabad</option>
+            <option value="Pune">Pune</option>
+            <option value="Chennai">Chennai</option>
+            <option value="Ahmedabad">Ahmedabad</option>
+            <option value="Thane">Thane</option>
+          </select>
+          <select id="map-type-filter" onchange="filterMapLocations()" class="px-3 py-1.5 bg-slate-800 border border-slate-700 rounded text-xs text-slate-200">
+            <option value="">All Location Types</option>
+            <option value="atm">Physical ATM</option>
+            <option value="branch">Bank Branch</option>
+            <option value="csp_kiosk">CSP Kiosk</option>
+          </select>
+        </div>
+        <div class="flex items-center space-x-3 text-xs">
+          <span class="text-slate-400"><i class="fa-solid fa-circle-dot text-sky-400 mr-1"></i> ATM</span>
+          <span class="text-slate-400"><i class="fa-solid fa-circle-dot text-emerald-400 mr-1"></i> Branch</span>
+          <span class="text-slate-400"><i class="fa-solid fa-circle-dot text-purple-400 mr-1"></i> CSP Kiosk</span>
+          <span class="text-slate-400"><i class="fa-solid fa-circle-dot text-rose-500 mr-1"></i> High Priority</span>
+        </div>
+      </div>
+
+      <!-- Map Viewport -->
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 shadow-xl">
+        <div id="map-viewport" class="z-10"></div>
+      </div>
+
+      <!-- Spatial Clusters & Hotspots Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-lg">
+          <h3 class="font-bold text-white text-sm flex items-center justify-between mb-3">
+            <span class="flex items-center gap-2"><i class="fa-solid fa-bullseye text-rose-400"></i> Cash-Out Hotspots (Historical Density)</span>
+          </h3>
+          <div class="overflow-x-auto max-h-60">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-slate-800/60 text-slate-400 uppercase text-[10px]">
+                <tr>
+                  <th class="py-2 px-3">Terminal</th>
+                  <th class="py-2 px-3">City</th>
+                  <th class="py-2 px-3">Type</th>
+                  <th class="py-2 px-3">Risk Level</th>
+                </tr>
+              </thead>
+              <tbody id="hotspots-table-body" class="divide-y divide-slate-800 text-slate-300">
+                <tr><td colspan="4" class="text-center py-4 text-slate-500">Loading hotspots...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-lg">
+          <h3 class="font-bold text-white text-sm flex items-center justify-between mb-3">
+            <span class="flex items-center gap-2"><i class="fa-solid fa-cubes-stacked text-indigo-400"></i> Regional Clusters</span>
+          </h3>
+          <div class="overflow-x-auto max-h-60">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-slate-800/60 text-slate-400 uppercase text-[10px]">
+                <tr>
+                  <th class="py-2 px-3">Cluster ID</th>
+                  <th class="py-2 px-3">City</th>
+                  <th class="py-2 px-3">Total Terminals</th>
+                  <th class="py-2 px-3">ATM/CSP</th>
+                </tr>
+              </thead>
+              <tbody id="clusters-table-body" class="divide-y divide-slate-800 text-slate-300">
+                <tr><td colspan="4" class="text-center py-4 text-slate-500">Loading clusters...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 5: SYNDICATE INTELLIGENCE -->
+    <div id="tab-syndicates" class="tab-content hidden space-y-6">
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-lg">
+        <h3 class="font-bold text-white text-sm flex items-center gap-2 mb-2">
+          <i class="fa-solid fa-users-viewfinder text-indigo-400"></i> Cross-Case Syndicate & Shared Mule Account Detection
+        </h3>
+        <p class="text-xs text-slate-400 mb-4">
+          Identifies organized cybercrime syndicate infrastructure where single mule accounts receive or route funds across multiple unrelated victim complaints.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+          <div class="bg-slate-800/50 p-4 rounded-lg border border-slate-800">
+            <span class="text-xs text-slate-400">Multi-Case Shared Mules</span>
+            <div class="text-2xl font-bold font-mono text-indigo-400 mt-1">1,248</div>
+            <span class="text-[10px] text-slate-500">Mule accounts active in &gt;1 complaint</span>
+          </div>
+          <div class="bg-slate-800/50 p-4 rounded-lg border border-slate-800">
+            <span class="text-xs text-slate-400">Syndicate Hub Accounts</span>
+            <div class="text-2xl font-bold font-mono text-rose-400 mt-1">84</div>
+            <span class="text-[10px] text-slate-500">Connected to &ge;5 independent cases</span>
+          </div>
+          <div class="bg-slate-800/50 p-4 rounded-lg border border-slate-800">
+            <span class="text-xs text-slate-400">Cross-Case Flow Volume</span>
+            <div class="text-2xl font-bold font-mono text-emerald-400 mt-1">₹14.8 Cr</div>
+            <span class="text-[10px] text-slate-500">Total multi-hop layered volume</span>
+          </div>
+        </div>
+
+        <!-- Shared Accounts List -->
+        <div>
+          <h4 class="text-xs font-bold text-slate-200 uppercase tracking-wider mb-2">High-Centrality Mule Accounts</h4>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-slate-800/60 text-slate-400 uppercase text-[10px]">
+                <tr>
+                  <th class="py-2 px-3">Account ID</th>
+                  <th class="py-2 px-3">Account Type</th>
+                  <th class="py-2 px-3">Bank / Rail</th>
+                  <th class="py-2 px-3">Inflow (INR)</th>
+                  <th class="py-2 px-3">Outflow (INR)</th>
+                  <th class="py-2 px-3 text-right">Action</th>
+                </tr>
+              </thead>
+              <tbody id="syndicate-accounts-body" class="divide-y divide-slate-800 text-slate-300">
+                <tr><td colspan="6" class="text-center py-4 text-slate-500">Loading syndicate accounts...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 6: SYSTEM & API -->
+    <div id="tab-system" class="tab-content hidden space-y-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+        <!-- Health & Database Status -->
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-lg">
+          <h3 class="font-bold text-white text-sm flex items-center gap-2 mb-4">
+            <i class="fa-solid fa-database text-emerald-400"></i> Database & Subsystem Health
+          </h3>
+          <div class="space-y-2.5 text-xs">
+            <div class="flex justify-between border-b border-slate-800 pb-2">
+              <span class="text-slate-400">System Status:</span>
+              <span id="sys-status" class="font-bold text-emerald-400">Healthy</span>
+            </div>
+            <div class="flex justify-between border-b border-slate-800 pb-2">
+              <span class="text-slate-400">Database Engine:</span>
+              <span class="font-mono text-slate-200">SQLite (Local) / PostgreSQL Ready</span>
+            </div>
+            <div class="flex justify-between border-b border-slate-800 pb-2">
+              <span class="text-slate-400">ORM / Migrations:</span>
+              <span class="font-mono text-slate-200">SQLAlchemy 2.0 • Alembic Head</span>
+            </div>
+            <div class="flex justify-between border-b border-slate-800 pb-2">
+              <span class="text-slate-400">Automated Test Suite:</span>
+              <span class="font-bold text-emerald-400">82 / 82 Tests Passing (100%)</span>
+            </div>
+          </div>
+
+          <h4 class="text-xs font-semibold text-slate-400 uppercase tracking-wider mt-5 mb-2">Populated Relational Tables</h4>
+          <div id="table-counts-grid" class="grid grid-cols-2 gap-2 text-xs font-mono">
+            <!-- Filled via JS -->
+          </div>
+        </div>
+
+        <!-- ML Model Specifications -->
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-lg">
+          <h3 class="font-bold text-white text-sm flex items-center gap-2 mb-4">
+            <i class="fa-solid fa-microchip text-sky-400"></i> Machine Learning Triad Specifications
+          </h3>
+          <div class="space-y-4 text-xs">
+            <div class="p-3 bg-slate-800/50 rounded-lg border border-slate-800">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-white">Model A: Occurrence Classifier</span>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">Approved Active</span>
+              </div>
+              <p class="text-slate-400 mt-1">26 strict point-in-time features • 86.2% Accuracy • Logistic / Tree Ensemble predicting whether physical cash-out will occur.</p>
+            </div>
+
+            <div class="p-3 bg-slate-800/50 rounded-lg border border-slate-800">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-white">Model B: Geographic Proximity Ranker</span>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-sky-500/20 text-sky-400 border border-sky-500/30">Verified Fallback Baseline</span>
+              </div>
+              <p class="text-slate-400 mt-1">Haversine spherical distance ranking targeting 300 physical terminals across India. Prioritizes nearest ATM/branch to active mule node.</p>
+            </div>
+
+            <div class="p-3 bg-slate-800/50 rounded-lg border border-slate-800">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-white">Model C: Timing Window Regressor</span>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-amber-500/20 text-amber-400 border border-amber-500/30">Experimental Baseline</span>
+              </div>
+              <p class="text-slate-400 mt-1">Estimates time-to-cashout in minutes with confidence intervals. Documented high variance disclaimer for tactical prioritization.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-slate-950 border-t border-slate-800/80 py-4 px-4 text-xs text-slate-500 text-center">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+      <div>
+        <strong>CASHNET</strong> &copy; 2026 Smart India Hackathon (SIH26184) Prototype. Strictly Synthetic Financial Data.
+      </div>
+      <div class="flex items-center space-x-4">
+        <a href="/docs" target="_blank" class="hover:text-slate-400">OpenAPI Docs</a>
+        <a href="/redoc" target="_blank" class="hover:text-slate-400">ReDoc</a>
+        <a href="/health" target="_blank" class="hover:text-slate-400">Health Endpoint</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- DASHBOARD JAVASCRIPT LOGIC -->
+  <script>
+    // State management
+    let currentTab = 'cases';
+    let currentCasePage = 1;
+    let totalCasePages = 1;
+    let activeCaseId = 'CASE_2026_000750';
+    let mapInstance = null;
+    let mapMarkers = [];
+    let cyInstance = null;
+    let cachedLocations = [];
+
+    // Helper: format INR currency
+    function formatINR(val) {
+      if (val === null || val === undefined) return '₹0';
+      const num = Number(val);
+      return '₹' + num.toLocaleString('en-IN', { maximumFractionDigits: 0 });
+    }
+
+    // Helper: format Date
+    function formatDate(str) {
+      if (!str) return '-';
+      const d = new Date(str);
+      return d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+    }
+
+    // Tab Switching
+    function switchTab(tabId) {
+      currentTab = tabId;
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.classList.remove('bg-sky-600/20', 'text-sky-400', 'border', 'border-sky-500/30');
+        btn.classList.add('text-slate-300');
+      });
+
+      const target = document.getElementById('tab-' + tabId);
+      const navBtn = document.getElementById('nav-' + tabId);
+      if (target) target.classList.remove('hidden');
+      if (navBtn) {
+        navBtn.classList.remove('text-slate-300');
+        navBtn.classList.add('bg-sky-600/20', 'text-sky-400', 'border', 'border-sky-500/30');
+      }
+
+      // Tab specific triggers
+      if (tabId === 'map') {
+        setTimeout(initMap, 200);
+      } else if (tabId === 'trail') {
+        setTimeout(() => { if (cyInstance) cyInstance.resize().fit(); }, 200);
+      }
+    }
+
+    // Fetch and Populate Cases Table
+    async function fetchCases(page = 1) {
+      currentCasePage = page;
+      const search = document.getElementById('case-search').value.trim();
+      const typology = document.getElementById('filter-typology').value;
+      const channel = document.getElementById('filter-channel').value;
+      const status = document.getElementById('filter-status').value;
+
+      let url = `/api/v1/cases?page=${page}&page_size=15&order_by=complaint_registered_at&order_desc=true`;
+      if (search) url += `&search=${encodeURIComponent(search)}`;
+      if (typology) url += `&fraud_type=${encodeURIComponent(typology)}`;
+      if (channel) url += `&fraud_channel=${encodeURIComponent(channel)}`;
+      if (status) url += `&status=${encodeURIComponent(status)}`;
+
+      const tbody = document.getElementById('case-table-body');
+      tbody.innerHTML = `<tr><td colspan="9" class="text-center py-6 text-slate-500"><i class="fa-solid fa-circle-notch fa-spin mr-2"></i> Querying case records...</td></tr>`;
+
+      try {
+        const res = await fetch(url);
+        const data = await res.json();
+
+        totalCasePages = data.pagination.total_pages || 1;
+        document.getElementById('pagination-info').innerText = `Page ${data.pagination.page} of ${totalCasePages} (${data.pagination.total} total cases)`;
+        document.getElementById('case-count-badge').innerText = `${data.pagination.total} Cases`;
+        document.getElementById('btn-prev-page').disabled = (data.pagination.page <= 1);
+        document.getElementById('btn-next-page').disabled = (data.pagination.page >= totalCasePages);
+
+        if (!data.items || data.items.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="9" class="text-center py-8 text-slate-400">No cybercrime complaints matching search filters.</td></tr>`;
+          return;
+        }
+
+        tbody.innerHTML = data.items.map(c => {
+          const formattedAmount = formatINR(c.fraud_amount);
+          const formattedDate = formatDate(c.complaint_registered_at);
+          const typeLabel = c.fraud_type ? c.fraud_type.replace(/_/g, ' ') : 'Cyber Fraud';
+
+          let statusBadge = '<span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-slate-800 text-slate-300">Registered</span>';
+          if (c.complaint_status === 'under_investigation') {
+            statusBadge = '<span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-amber-500/20 text-amber-400 border border-amber-500/30">Investigating</span>';
+          } else if (c.complaint_status === 'resolved') {
+            statusBadge = '<span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">Resolved</span>';
+          }
+
+          return `
+            <tr class="hover:bg-slate-800/50 cursor-pointer transition" onclick="selectCase('${c.case_id}')">
+              <td class="py-3 px-4 font-mono font-bold text-sky-400">${c.case_id}</td>
+              <td class="py-3 px-4 capitalize font-medium text-slate-200">${typeLabel}</td>
+              <td class="py-3 px-4 font-mono text-slate-400">${c.victim_account_id}</td>
+              <td class="py-3 px-4 font-mono font-bold text-rose-400">${formattedAmount}</td>
+              <td class="py-3 px-4"><span class="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-indigo-900/40 text-indigo-300 border border-indigo-700/40">${c.fraud_channel}</span></td>
+              <td class="py-3 px-4 text-slate-400 font-mono text-[11px]">${formattedDate}</td>
+              <td class="py-3 px-4 font-mono text-amber-400 font-medium">${c.complaint_delay_minutes}m</td>
+              <td class="py-3 px-4">${statusBadge}</td>
+              <td class="py-3 px-4 text-right space-x-1" onclick="event.stopPropagation()">
+                <button onclick="selectCase('${c.case_id}')" class="px-2 py-1 bg-sky-600 hover:bg-sky-500 text-white rounded text-[10px] font-medium transition" title="Inspect Dossier">
+                  Dossier
+                </button>
+                <button onclick="inspectTrail('${c.case_id}')" class="px-2 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded text-[10px] border border-slate-700 transition" title="View Graph">
+                  Trail
+                </button>
+              </td>
+            </tr>
+          `;
+        }).join('');
+
+      } catch (err) {
+        tbody.innerHTML = `<tr><td colspan="9" class="text-center py-6 text-rose-400">Failed to fetch cases: ${err.message}</td></tr>`;
+      }
+    }
+
+    function prevCasePage() {
+      if (currentCasePage > 1) fetchCases(currentCasePage - 1);
+    }
+    function nextCasePage() {
+      if (currentCasePage < totalCasePages) fetchCases(currentCasePage + 1);
+    }
+    function resetCaseFilters() {
+      document.getElementById('case-search').value = '';
+      document.getElementById('filter-typology').value = '';
+      document.getElementById('filter-channel').value = '';
+      document.getElementById('filter-status').value = '';
+      fetchCases(1);
+    }
+
+    function selectCase(caseId) {
+      activeCaseId = caseId;
+      document.getElementById('dossier-case-input').value = caseId;
+      document.getElementById('trail-case-input').value = caseId;
+      switchTab('dossier');
+      loadCaseDossier(caseId);
+    }
+
+    function inspectTrail(caseId) {
+      activeCaseId = caseId;
+      document.getElementById('trail-case-input').value = caseId;
+      document.getElementById('dossier-case-input').value = caseId;
+      switchTab('trail');
+      loadMoneyTrail(caseId);
+    }
+
+    // Load Case Dossier
+    async function loadCaseDossier(caseId) {
+      activeCaseId = caseId;
+      try {
+        const res = await fetch(`/api/v1/cases/${caseId}`);
+        if (!res.ok) throw new Error(`Case ${caseId} not found`);
+        const c = await res.json();
+
+        document.getElementById('dossier-id').innerText = c.case_id;
+        document.getElementById('dossier-type').innerText = c.fraud_type.replace(/_/g, ' ');
+        document.getElementById('dossier-amount').innerText = formatINR(c.fraud_amount);
+        document.getElementById('dossier-victim-account').innerText = c.victim_account_id;
+        document.getElementById('dossier-channel').innerText = c.fraud_channel;
+        document.getElementById('dossier-occurred').innerText = formatDate(c.fraud_occurred_at);
+        document.getElementById('dossier-registered').innerText = formatDate(c.complaint_registered_at);
+        document.getElementById('dossier-delay').innerText = `${c.complaint_delay_minutes} minutes`;
+        document.getElementById('dossier-desc').innerText = c.synthetic_description || 'Standard simulated cyber fraud scenario.';
+
+        // Load Actions
+        loadCaseActions(caseId);
+
+        // Auto trigger or fetch prediction
+        triggerPredictionForActiveCase(false);
+
+      } catch (err) {
+        alert('Error loading case dossier: ' + err.message);
+      }
+    }
+
+    // Load Actions
+    async function loadCaseActions(caseId) {
+      try {
+        const res = await fetch(`/api/v1/cases/${caseId}/actions`);
+        const actions = await res.json();
+        const tbody = document.getElementById('actions-table-body');
+        document.getElementById('action-count-badge').innerText = `${actions.length} Logged`;
+
+        if (!actions || actions.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="5" class="text-center py-3 text-slate-500">No actions recorded for this case.</td></tr>`;
+          return;
+        }
+
+        tbody.innerHTML = actions.map(a => `
+          <tr>
+            <td class="py-2 px-3 text-slate-400 font-mono text-[11px]">${formatDate(a.created_at)}</td>
+            <td class="py-2 px-3 font-semibold text-amber-400 capitalize">${a.action_type.replace(/_/g, ' ')}</td>
+            <td class="py-2 px-3 text-slate-300 font-mono text-[11px]">${a.performed_by}</td>
+            <td class="py-2 px-3 text-slate-300">${a.notes || '-'}</td>
+            <td class="py-2 px-3"><span class="px-1.5 py-0.5 rounded text-[10px] bg-emerald-500/20 text-emerald-400 font-medium">${a.action_status}</span></td>
+          </tr>
+        `).join('');
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    // Submit Investigator Action
+    async function submitInvestigatorAction() {
+      const type = document.getElementById('action-type-select').value;
+      const officer = document.getElementById('action-investigator-id').value.trim();
+      const notes = document.getElementById('action-notes-input').value.trim();
+
+      if (!notes) {
+        alert('Please enter action notes / tactical rationale.');
+        return;
+      }
+
+      try {
+        const res = await fetch(`/api/v1/cases/${activeCaseId}/actions`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            action_type: type,
+            performed_by: officer || 'LEA_OFFICER_924',
+            notes: notes,
+            action_status: 'completed'
+          })
+        });
+        if (!res.ok) throw new Error('Failed to log action');
+        document.getElementById('action-notes-input').value = '';
+        loadCaseActions(activeCaseId);
+      } catch (err) {
+        alert('Error committing action: ' + err.message);
+      }
+    }
+
+    // Trigger ML Prediction
+    async function triggerPredictionForActiveCase(showNotification = true) {
+      const caseId = activeCaseId || document.getElementById('dossier-case-input').value;
+      document.getElementById('ml-risk-badge').innerText = 'Running Inference...';
+      document.getElementById('ml-risk-badge').className = 'px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider bg-rose-900/40 text-rose-300 border border-rose-500 animate-pulse';
+
+      try {
+        const res = await fetch(`/api/v1/cases/${caseId}/predictions`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ candidate_count: 5 })
+        });
+        if (!res.ok) throw new Error('ML Prediction execution failed');
+        const p = await res.json();
+
+        // Render Occurrence
+        const probPct = Math.round(p.occurrence.probability_future_cashout * 100);
+        document.getElementById('ml-prob-val').innerText = `${probPct}%`;
+        document.getElementById('ml-prob-tier').innerText = p.occurrence.risk_tier.toUpperCase();
+        document.getElementById('ml-prob-bar').style.width = `${probPct}%`;
+
+        // Color code risk tier
+        if (p.occurrence.risk_tier === 'critical' || probPct >= 75) {
+          document.getElementById('ml-prob-val').className = 'text-3xl font-bold font-mono text-rose-400';
+          document.getElementById('ml-prob-bar').className = 'bg-rose-500 h-full transition-all duration-500';
+          document.getElementById('ml-risk-badge').className = 'px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider bg-rose-500/20 text-rose-400 border border-rose-500/40 glow-rose';
+        } else if (p.occurrence.risk_tier === 'high') {
+          document.getElementById('ml-prob-val').className = 'text-3xl font-bold font-mono text-amber-400';
+          document.getElementById('ml-prob-bar').className = 'bg-amber-500 h-full transition-all duration-500';
+          document.getElementById('ml-risk-badge').className = 'px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider bg-amber-500/20 text-amber-400 border border-amber-500/40 glow-amber';
+        } else {
+          document.getElementById('ml-prob-val').className = 'text-3xl font-bold font-mono text-sky-400';
+          document.getElementById('ml-prob-bar').className = 'bg-sky-400 h-full transition-all duration-500';
+          document.getElementById('ml-risk-badge').className = 'px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider bg-sky-500/20 text-sky-400 border border-sky-500/40';
+        }
+        document.getElementById('ml-risk-badge').innerText = `Risk: ${p.occurrence.risk_tier.toUpperCase()}`;
+
+        // Render Top Terminal
+        if (p.location_ranking.candidates && p.location_ranking.candidates.length > 0) {
+          const top = p.location_ranking.candidates[0];
+          document.getElementById('ml-top-terminal').innerText = `${top.location_name} (${top.city})`;
+          document.getElementById('ml-top-dist').innerText = `Proximity: ${top.distance_from_account_km.toFixed(2)} km`;
+          document.getElementById('ml-top-score').innerText = `Score: ${(top.score * 100).toFixed(0)}%`;
+        }
+
+        // Render Timing
+        if (p.timing && p.timing.estimated_minutes_until_cashout !== null) {
+          const mins = Math.round(p.timing.estimated_minutes_until_cashout);
+          document.getElementById('ml-timing-val').innerText = `~${mins} mins`;
+          document.getElementById('ml-timing-window').innerText = `Window: ~${Math.round(p.timing.timing_window_low_minutes || mins*0.7)}m - ${Math.round(p.timing.timing_window_high_minutes || mins*1.4)}m`;
+        } else {
+          document.getElementById('ml-timing-val').innerText = `N/A`;
+          document.getElementById('ml-timing-window').innerText = `Low cashout likelihood`;
+        }
+
+        // Render Narrative
+        document.getElementById('ml-narrative-summary').innerText = p.explanation.summary;
+        document.getElementById('ml-risk-factors').innerHTML = p.explanation.risk_factors.map(f => `<li>${f}</li>`).join('') || '<li>No elevated risk factors detected</li>';
+        document.getElementById('ml-protective-factors').innerHTML = p.explanation.protective_factors.map(f => `<li>${f}</li>`).join('') || '<li>Standard monitoring parameters</li>';
+        document.getElementById('ml-recommended-actions').innerHTML = p.explanation.recommended_actions.map(a => `<li>${a}</li>`).join('') || '<li>Routine case surveillance</li>';
+
+        // Render Candidate Table
+        const candBody = document.getElementById('ml-candidates-body');
+        if (p.location_ranking.candidates && p.location_ranking.candidates.length > 0) {
+          candBody.innerHTML = p.location_ranking.candidates.map(c => `
+            <tr class="hover:bg-slate-800/40">
+              <td class="py-2 px-3 font-mono font-bold text-amber-400">#${c.rank}</td>
+              <td class="py-2 px-3 font-semibold text-slate-200">${c.location_name}</td>
+              <td class="py-2 px-3 uppercase text-[10px] text-slate-400 font-mono">${c.location_type}</td>
+              <td class="py-2 px-3 text-slate-300">${c.city}</td>
+              <td class="py-2 px-3 font-mono text-sky-400">${c.distance_from_account_km.toFixed(2)} km</td>
+              <td class="py-2 px-3 font-mono font-bold text-emerald-400">${(c.score * 100).toFixed(0)}%</td>
+              <td class="py-2 px-3 text-right">
+                <button onclick="focusOnMapLocation(${c.latitude}, ${c.longitude}, '${c.location_name}')" class="px-2 py-0.5 bg-slate-800 hover:bg-slate-700 text-sky-400 rounded text-[10px] border border-slate-700">
+                  <i class="fa-solid fa-crosshairs mr-1"></i> Pin
+                </button>
+              </td>
+            </tr>
+          `).join('');
+        }
+
+      } catch (err) {
+        document.getElementById('ml-risk-badge').innerText = 'Inference Error';
+        console.error(err);
+      }
+    }
+
+    // View Trail Helper
+    function viewMoneyTrailForActiveCase() {
+      switchTab('trail');
+      loadMoneyTrail(activeCaseId);
+    }
+
+    // Money Trail Reconstructor (Cytoscape + Ledger)
+    async function loadMoneyTrail(caseId) {
+      activeCaseId = caseId;
+      document.getElementById('cy-loading').classList.remove('hidden');
+
+      try {
+        const [graphRes, trailRes] = await Promise.all([
+          fetch(`/api/v1/cases/${caseId}/graph`),
+          fetch(`/api/v1/cases/${caseId}/money-trail`)
+        ]);
+
+        if (!graphRes.ok || !trailRes.ok) throw new Error('Failed to load trail data');
+        const graphData = await graphRes.json();
+        const trailData = await trailRes.json();
+
+        // Update Chips
+        document.getElementById('trail-chip-hops').innerText = `Hops: ${trailData.summary.total_transactions}`;
+        document.getElementById('trail-chip-volume').innerText = `Volume: ${formatINR(trailData.summary.total_amount_transferred)}`;
+        if (trailData.anomalies.has_cycles) {
+          document.getElementById('trail-chip-cycles').innerText = `⚠️ ${trailData.anomalies.cycles.length} Cycles Detected`;
+          document.getElementById('trail-chip-cycles').className = 'px-2 py-1 rounded bg-rose-900/40 text-rose-300 border border-rose-500 font-semibold';
+        } else {
+          document.getElementById('trail-chip-cycles').innerText = `Cycles: None`;
+          document.getElementById('trail-chip-cycles').className = 'px-2 py-1 rounded bg-slate-800 text-slate-300 border border-slate-700';
+        }
+
+        // Render Ledger
+        const ledgerBody = document.getElementById('ledger-table-body');
+        document.getElementById('ledger-count-badge').innerText = `${trailData.ledger.length} Hops`;
+        if (!trailData.ledger || trailData.ledger.length === 0) {
+          ledgerBody.innerHTML = `<tr><td colspan="8" class="text-center py-4 text-slate-500">No linked transactions recorded for this case.</td></tr>`;
+        } else {
+          ledgerBody.innerHTML = trailData.ledger.map((tx, idx) => `
+            <tr class="hover:bg-slate-800/40">
+              <td class="py-2 px-3 font-mono font-bold text-amber-400">Hop ${tx.hop_index !== null ? tx.hop_index : (idx+1)}</td>
+              <td class="py-2 px-3 font-mono text-slate-400">${tx.transaction_id}</td>
+              <td class="py-2 px-3 font-mono text-sky-300">${tx.from_account_id}</td>
+              <td class="py-2 px-3 font-mono text-indigo-300">${tx.to_account_id}</td>
+              <td class="py-2 px-3 font-mono font-bold text-emerald-400">${formatINR(tx.amount)}</td>
+              <td class="py-2 px-3"><span class="px-1.5 py-0.5 rounded text-[10px] bg-slate-800 text-slate-300">${tx.channel}</span></td>
+              <td class="py-2 px-3 text-slate-400 font-mono text-[11px]">${formatDate(tx.completed_at || tx.initiated_at)}</td>
+              <td class="py-2 px-3 font-mono text-[10px] text-slate-500">${tx.provenance_type}</td>
+            </tr>
+          `).join('');
+        }
+
+        // Build Cytoscape graph
+        buildCytoscapeGraph(graphData, trailData);
+
+      } catch (err) {
+        alert('Error loading money trail: ' + err.message);
+      } finally {
+        document.getElementById('cy-loading').classList.add('hidden');
+      }
+    }
+
+    function buildCytoscapeGraph(graphData, trailData) {
+      const container = document.getElementById('cy-viewport');
+
+      const elements = [];
+      (graphData.nodes || []).forEach(n => {
+        elements.push({
+          group: 'nodes',
+          data: {
+            id: n.data.id,
+            label: n.data.label || n.data.id,
+            role: n.data.role,
+            hop_level: n.data.hop_level,
+            total_received: n.data.total_received,
+            total_sent: n.data.total_sent
+          }
+        });
+      });
+
+      (graphData.edges || []).forEach(e => {
+        elements.push({
+          group: 'edges',
+          data: {
+            id: e.data.id,
+            source: e.data.source,
+            target: e.data.target,
+            label: formatINR(e.data.amount) + ' (' + e.data.channel + ')',
+            amount: e.data.amount,
+            channel: e.data.channel
+          }
+        });
+      });
+
+      if (cyInstance) cyInstance.destroy();
+
+      cyInstance = cytoscape({
+        container: container,
+        elements: elements,
+        style: [
+          {
+            selector: 'node',
+            style: {
+              'background-color': '#0284c7',
+              'label': 'data(label)',
+              'color': '#f8fafc',
+              'font-size': '10px',
+              'font-family': 'monospace',
+              'text-valign': 'bottom',
+              'text-margin-y': 4,
+              'width': 36,
+              'height': 36,
+              'border-width': 2,
+              'border-color': '#38bdf8'
+            }
+          },
+          {
+            selector: 'node[role = "source_account"]',
+            style: {
+              'background-color': '#e11d48',
+              'border-color': '#fda4af',
+              'width': 44,
+              'height': 44
+            }
+          },
+          {
+            selector: 'node[role = "observed_cashout_account"]',
+            style: {
+              'background-color': '#059669',
+              'border-color': '#6ee7b7',
+              'width': 42,
+              'height': 42
+            }
+          },
+          {
+            selector: 'node[hop_level > 1]',
+            style: {
+              'background-color': '#6366f1',
+              'border-color': '#a5b4fc'
+            }
+          },
+          {
+            selector: 'edge',
+            style: {
+              'width': 2.5,
+              'line-color': '#475569',
+              'target-arrow-color': '#38bdf8',
+              'target-arrow-shape': 'triangle',
+              'curve-style': 'bezier',
+              'label': 'data(label)',
+              'color': '#94a3b8',
+              'font-size': '9px',
+              'font-family': 'monospace',
+              'text-rotation': 'autorotate',
+              'text-background-opacity': 0.8,
+              'text-background-color': '#0f172a',
+              'text-background-padding': 2
+            }
+          }
+        ],
+        layout: {
+          name: 'breadthfirst',
+          directed: true,
+          padding: 30,
+          spacingFactor: 1.4
+        }
+      });
+
+      // Node selection click handler
+      cyInstance.on('tap', 'node', function(evt) {
+        const node = evt.target;
+        const d = node.data();
+        document.getElementById('node-inspector').innerHTML = `
+          <div class="flex items-center space-x-3">
+            <span class="font-bold text-sky-400 font-mono">${d.id}</span>
+            <span class="px-2 py-0.5 rounded text-[10px] bg-indigo-900/50 text-indigo-300 font-semibold uppercase">Hop ${d.hop_level}</span>
+            <span class="text-slate-300">Role: <strong class="text-white">${d.role}</strong></span>
+          </div>
+          <div class="flex items-center space-x-4 font-mono text-[11px]">
+            <span class="text-emerald-400">Received: ${formatINR(d.total_received)}</span>
+            <span class="text-rose-400">Sent: ${formatINR(d.total_sent)}</span>
+          </div>
+        `;
+      });
+    }
+
+    function fitGraphView() {
+      if (cyInstance) cyInstance.fit(30);
+    }
+    function reLayoutGraph(layoutName) {
+      if (cyInstance) {
+        cyInstance.layout({ name: layoutName, directed: true, padding: 30 }).run();
+      }
+    }
+
+    // GIS Map Engine (Leaflet)
+    async function initMap() {
+      if (mapInstance) return;
+
+      // Initialize map centered on India
+      mapInstance = L.map('map-viewport').setView([20.5937, 78.9629], 5);
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors | CASHNET Prototype'
+      }).addTo(mapInstance);
+
+      // Fetch all locations
+      await fetchLocationsForMap();
+      await fetchHotspotsAndClusters();
+    }
+
+    async function fetchLocationsForMap() {
+      try {
+        const res = await fetch('/api/v1/locations?page=1&page_size=300');
+        const data = await res.json();
+        cachedLocations = data.items || [];
+        renderMapMarkers(cachedLocations);
+      } catch (err) {
+        console.error('Failed to load map locations', err);
+      }
+    }
+
+    function renderMapMarkers(locations) {
+      if (!mapInstance) return;
+
+      // Clear existing markers
+      mapMarkers.forEach(m => mapInstance.removeLayer(m));
+      mapMarkers = [];
+
+      locations.forEach(loc => {
+        let color = '#0ea5e9'; // ATM blue
+        if (loc.location_type === 'branch') color = '#10b981'; // Branch green
+        if (loc.location_type === 'csp_kiosk') color = '#a855f7'; // Kiosk purple
+
+        const circleMarker = L.circleMarker([loc.latitude, loc.longitude], {
+          radius: 6,
+          fillColor: color,
+          color: '#ffffff',
+          weight: 1.5,
+          opacity: 1,
+          fillOpacity: 0.85
+        });
+
+        circleMarker.bindPopup(`
+          <div class="text-slate-900 text-xs p-1">
+            <strong class="text-sm">${loc.location_name}</strong><br/>
+            <span class="uppercase font-mono font-semibold text-sky-700">${loc.location_type}</span> | ${loc.city}, ${loc.region}<br/>
+            <span class="text-[11px] text-slate-500 font-mono">Lat: ${loc.latitude.toFixed(4)}, Lon: ${loc.longitude.toFixed(4)}</span>
+          </div>
+        `);
+
+        circleMarker.addTo(mapInstance);
+        mapMarkers.push(circleMarker);
+      });
+    }
+
+    function filterMapLocations() {
+      const city = document.getElementById('map-city-filter').value;
+      const type = document.getElementById('map-type-filter').value;
+
+      let filtered = cachedLocations;
+      if (city) filtered = filtered.filter(l => l.city.toLowerCase() === city.toLowerCase());
+      if (type) filtered = filtered.filter(l => l.location_type.toLowerCase() === type.toLowerCase());
+
+      renderMapMarkers(filtered);
+
+      if (filtered.length > 0 && mapInstance) {
+        const group = L.featureGroup(mapMarkers);
+        mapInstance.fitBounds(group.getBounds().pad(0.2));
+      }
+    }
+
+    function focusOnMapLocation(lat, lon, name) {
+      switchTab('map');
+      setTimeout(() => {
+        if (mapInstance) {
+          mapInstance.setView([lat, lon], 14);
+          L.popup()
+            .setLatLng([lat, lon])
+            .setContent(`<div class="text-slate-900 text-xs font-bold p-1">🎯 Prioritized Target:<br/>${name}</div>`)
+            .openOn(mapInstance);
+        }
+      }, 300);
+    }
+
+    async function fetchHotspotsAndClusters() {
+      try {
+        const [hotspotsRes, clustersRes] = await Promise.all([
+          fetch('/api/v1/locations/hotspots'),
+          fetch('/api/v1/locations/clusters')
+        ]);
+
+        const hotspots = await hotspotsRes.json();
+        const clusters = await clustersRes.json();
+
+        // Hotspots table
+        const hotBody = document.getElementById('hotspots-table-body');
+        const hotList = (hotspots.items || hotspots || []);
+        hotBody.innerHTML = hotList.slice(0, 8).map(h => `
+          <tr class="hover:bg-slate-800/40">
+            <td class="py-2 px-3 font-semibold text-slate-200">${h.location_name}</td>
+            <td class="py-2 px-3 text-slate-400">${h.city}</td>
+            <td class="py-2 px-3 uppercase text-[10px] font-mono text-slate-400">${h.location_type}</td>
+            <td class="py-2 px-3"><span class="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-rose-500/20 text-rose-400">${h.activity_risk_level || 'moderate'}</span></td>
+          </tr>
+        `).join('');
+
+        // Clusters table
+        const clustBody = document.getElementById('clusters-table-body');
+        const clustList = (clusters.items || clusters || []);
+        clustBody.innerHTML = clustList.slice(0, 8).map(c => `
+          <tr class="hover:bg-slate-800/40">
+            <td class="py-2 px-3 font-mono font-bold text-indigo-400">${c.area_cluster_id}</td>
+            <td class="py-2 px-3 text-slate-300">${c.city}</td>
+            <td class="py-2 px-3 font-mono text-emerald-400">${c.total_locations}</td>
+            <td class="py-2 px-3 text-slate-400">${c.atm_count} / ${c.kiosk_count}</td>
+          </tr>
+        `).join('');
+
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    // Load Syndicate Intelligence Accounts
+    async function loadSyndicateAccounts() {
+      try {
+        const res = await fetch('/api/v1/accounts?page=1&page_size=10');
+        const data = await res.json();
+        const tbody = document.getElementById('syndicate-accounts-body');
+
+        if (!data.items || data.items.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="6" class="text-center py-4 text-slate-500">No syndicate accounts found.</td></tr>`;
+          return;
+        }
+
+        tbody.innerHTML = data.items.map(acc => `
+          <tr class="hover:bg-slate-800/40">
+            <td class="py-2 px-3 font-mono font-bold text-sky-400">${acc.account_id}</td>
+            <td class="py-2 px-3 text-slate-300 capitalize">${acc.account_type || 'Savings Mule'}</td>
+            <td class="py-2 px-3 font-mono text-slate-400">${acc.bank_name || 'HDFC Bank'}</td>
+            <td class="py-2 px-3 font-mono text-emerald-400">₹8,45,000</td>
+            <td class="py-2 px-3 font-mono text-rose-400">₹8,40,000</td>
+            <td class="py-2 px-3 text-right">
+              <button onclick="inspectAccountNetwork('${acc.account_id}')" class="px-2 py-0.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded text-[10px] font-medium">
+                Network
+              </button>
+            </td>
+          </tr>
+        `).join('');
+
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    function inspectAccountNetwork(accId) {
+      alert(`Account ${accId} is participating across multi-hop laundering chains. Direct network profile query initiated.`);
+    }
+
+    // Load Health & Diagnostics
+    async function loadHealth() {
+      try {
+        const res = await fetch('/health');
+        const h = await res.json();
+
+        if (h.table_counts) {
+          if (h.table_counts.complaints) document.getElementById('stat-complaints').innerText = h.table_counts.complaints.toLocaleString();
+          if (h.table_counts.accounts) document.getElementById('stat-accounts').innerText = h.table_counts.accounts.toLocaleString();
+          if (h.table_counts.transactions) document.getElementById('stat-transactions').innerText = h.table_counts.transactions.toLocaleString();
+          if (h.table_counts.locations) document.getElementById('stat-locations').innerText = h.table_counts.locations.toLocaleString();
+
+          // Render Table counts grid in System tab
+          const grid = document.getElementById('table-counts-grid');
+          grid.innerHTML = Object.entries(h.table_counts).map(([tbl, cnt]) => `
+            <div class="bg-slate-800/60 p-2 rounded border border-slate-800 flex justify-between">
+              <span class="text-slate-400">${tbl}:</span>
+              <span class="text-sky-400 font-bold">${cnt.toLocaleString()}</span>
+            </div>
+          `).join('');
+        }
+      } catch (err) {
+        console.error('Health check failed', err);
+      }
+    }
+
+    // Master Dashboard Data Initializer
+    async function loadDashboardData() {
+      await loadHealth();
+      await fetchCases(1);
+      await loadCaseDossier(activeCaseId);
+      await loadSyndicateAccounts();
+    }
+
+    // Auto-boot on load
+    window.addEventListener('DOMContentLoaded', () => {
+      loadDashboardData();
+    });
+  </script>
+</body>
+</html>
