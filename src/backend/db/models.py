@@ -17,6 +17,8 @@ from sqlalchemy import (
     String,
     Text,
     event,
+    false,
+    true,
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -37,7 +39,7 @@ class Location(Base):
     longitude: Mapped[float] = mapped_column(Numeric(9, 6), nullable=False)
     area_cluster_id: Mapped[str] = mapped_column(String(64), nullable=False, index=True)
     synthetic_location_group: Mapped[str] = mapped_column(String(64), nullable=False)
-    is_active: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
+    is_active: Mapped[bool] = mapped_column(Boolean, default=True, server_default=true(), nullable=False)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=datetime.utcnow, nullable=False)
 
     # Relationships
@@ -113,7 +115,7 @@ class Transaction(Base):
     initiated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False, index=True)
     completed_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False, index=True)
     location_id: Mapped[Optional[str]] = mapped_column(String(64), ForeignKey("locations.location_id"), nullable=True, index=True)
-    is_fraud_linked: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False, index=True)
+    is_fraud_linked: Mapped[bool] = mapped_column(Boolean, default=False, server_default=false(), nullable=False, index=True)
     synthetic_event_group_id: Mapped[str] = mapped_column(String(64), nullable=False)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=datetime.utcnow, nullable=False)
 
@@ -137,7 +139,7 @@ class CashoutEvent(Base):
     withdrawal_amount: Mapped[Decimal] = mapped_column(Numeric(15, 2), nullable=False)
     cashout_occurred_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False, index=True)
     minutes_since_previous_transaction: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)
-    is_future_ground_truth: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
+    is_future_ground_truth: Mapped[bool] = mapped_column(Boolean, default=False, server_default=false(), nullable=False)
     synthetic_event_group_id: Mapped[str] = mapped_column(String(64), nullable=False)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=datetime.utcnow, nullable=False)
 
@@ -295,7 +297,7 @@ class PredictionGroundTruth(Base):
     actual_next_cashout_at: Mapped[Optional[datetime]] = mapped_column(DateTime(timezone=True), nullable=True)
     actual_minutes_until_cashout: Mapped[Optional[int]] = mapped_column(Integer, nullable=True)
     actual_cashout_amount: Mapped[Optional[Decimal]] = mapped_column(Numeric(15, 2), nullable=True)
-    has_future_cashout: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
+    has_future_cashout: Mapped[bool] = mapped_column(Boolean, default=False, server_default=false(), nullable=False)
     evaluation_status: Mapped[str] = mapped_column(String(64), nullable=False)
 
 

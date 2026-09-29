@@ -32,7 +32,7 @@ def upgrade() -> None:
         sa.Column('longitude', sa.Numeric(precision=9, scale=6), nullable=False),
         sa.Column('area_cluster_id', sa.String(length=64), nullable=False),
         sa.Column('synthetic_location_group', sa.String(length=64), nullable=False),
-        sa.Column('is_active', sa.Boolean(), nullable=False, server_default=sa.text('1')),
+        sa.Column('is_active', sa.Boolean(), nullable=False, server_default=sa.true()),
         sa.Column('created_at', sa.DateTime(timezone=True), nullable=False, server_default=sa.func.now()),
         sa.PrimaryKeyConstraint('location_id', name=op.f('pk_locations'))
     )
@@ -122,7 +122,7 @@ def upgrade() -> None:
         sa.Column('initiated_at', sa.DateTime(timezone=True), nullable=False),
         sa.Column('completed_at', sa.DateTime(timezone=True), nullable=False),
         sa.Column('location_id', sa.String(length=64), nullable=True),
-        sa.Column('is_fraud_linked', sa.Boolean(), nullable=False, server_default=sa.text('0')),
+        sa.Column('is_fraud_linked', sa.Boolean(), nullable=False, server_default=sa.false()),
         sa.Column('synthetic_event_group_id', sa.String(length=64), nullable=False),
         sa.Column('created_at', sa.DateTime(timezone=True), nullable=False, server_default=sa.func.now()),
         sa.ForeignKeyConstraint(['case_id'], ['complaints.case_id'], name=op.f('fk_transactions_case_id_complaints')),
@@ -153,7 +153,7 @@ def upgrade() -> None:
         sa.Column('withdrawal_amount', sa.Numeric(precision=15, scale=2), nullable=False),
         sa.Column('cashout_occurred_at', sa.DateTime(timezone=True), nullable=False),
         sa.Column('minutes_since_previous_transaction', sa.Integer(), nullable=True),
-        sa.Column('is_future_ground_truth', sa.Boolean(), nullable=False, server_default=sa.text('0')),
+        sa.Column('is_future_ground_truth', sa.Boolean(), nullable=False, server_default=sa.false()),
         sa.Column('synthetic_event_group_id', sa.String(length=64), nullable=False),
         sa.Column('created_at', sa.DateTime(timezone=True), nullable=False, server_default=sa.func.now()),
         sa.ForeignKeyConstraint(['case_id'], ['complaints.case_id'], name=op.f('fk_cashout_events_case_id_complaints')),
@@ -294,7 +294,7 @@ def upgrade() -> None:
         sa.Column('actual_next_cashout_at', sa.DateTime(timezone=True), nullable=True),
         sa.Column('actual_minutes_until_cashout', sa.Integer(), nullable=True),
         sa.Column('actual_cashout_amount', sa.Numeric(precision=15, scale=2), nullable=True),
-        sa.Column('has_future_cashout', sa.Boolean(), nullable=False, server_default=sa.text('0')),
+        sa.Column('has_future_cashout', sa.Boolean(), nullable=False, server_default=sa.false()),
         sa.Column('evaluation_status', sa.String(length=64), nullable=False),
         sa.ForeignKeyConstraint(['snapshot_id'], ['prediction_snapshots.snapshot_id'], name=op.f('fk_prediction_ground_truth_snapshot_id_prediction_snapshots')),
         sa.ForeignKeyConstraint(['actual_next_cashout_event_id'], ['cashout_events.cashout_event_id'], name=op.f('fk_prediction_ground_truth_actual_next_cashout_event_id_cashout_events')),
@@ -304,9 +304,46 @@ def upgrade() -> None:
     with op.batch_alter_table('prediction_ground_truth', schema=None) as batch_op:
         batch_op.create_index(batch_op.f('ix_prediction_ground_truth_snapshot_id'), ['snapshot_id'], unique=False)
 
+    # 13. Prediction Records (Immutable ML Prediction Audit & Provenance)
+    op.create_table(
+        'prediction_records',
+        sa.Column('prediction_id', sa.String(length=64), primary_key=True),
+        sa.Column('case_id', sa.String(length=64), nullable=False),
+        sa.Column('snapshot_id', sa.String(length=64), nullable=True),
+        sa.Column('account_id', sa.String(length=64), nullable=False),
+        sa.Column('prediction_timestamp', sa.DateTime(timezone=True), nullable=False),
+        sa.Column('occurrence_probability', sa.Float(), nullable=False),
+        sa.Column('predicted_occurrence', sa.Boolean(), nullable=False),
+        sa.Column('risk_tier', sa.String(length=32), nullable=False),
+        sa.Column('top_location_id', sa.String(length=64), nullable=True),
+        sa.Column('top_location_name', sa.String(length=128), nullable=True),
+        sa.Column('top_location_distance_km', sa.Float(), nullable=True),
+        sa.Column('estimated_minutes_until_cashout', sa.Float(), nullable=True),
+        sa.Column('timing_window_low_minutes', sa.Float(), nullable=True),
+        sa.Column('timing_window_high_minutes', sa.Float(), nullable=True),
+        sa.Column('features_used_json', sa.Text(), nullable=False),
+        sa.Column('occurrence_details_json', sa.Text(), nullable=False),
+        sa.Column('location_ranking_json', sa.Text(), nullable=False),
+        sa.Column('timing_details_json', sa.Text(), nullable=False),
+        sa.Column('explanation_json', sa.Text(), nullable=False),
+        sa.Column('model_metadata_json', sa.Text(), nullable=False),
+        sa.Column('created_at', sa.DateTime(timezone=True), nullable=False, server_default=sa.func.now()),
+        sa.ForeignKeyConstraint(['case_id'], ['complaints.case_id'], name=op.f('fk_prediction_records_case_id_complaints')),
+        sa.ForeignKeyConstraint(['snapshot_id'], ['prediction_snapshots.snapshot_id'], name=op.f('fk_prediction_records_snapshot_id_prediction_snapshots')),
+        sa.ForeignKeyConstraint(['account_id'], ['accounts.account_id'], name=op.f('fk_prediction_records_account_id_accounts')),
+        sa.ForeignKeyConstraint(['top_location_id'], ['locations.location_id'], name=op.f('fk_prediction_records_top_location_id_locations')),
+        sa.PrimaryKeyConstraint('prediction_id', name=op.f('pk_prediction_records'))
+    )
+    with op.batch_alter_table('prediction_records', schema=None) as batch_op:
+        batch_op.create_index(batch_op.f('ix_prediction_records_case_id'), ['case_id'], unique=False)
+        batch_op.create_index(batch_op.f('ix_prediction_records_snapshot_id'), ['snapshot_id'], unique=False)
+        batch_op.create_index(batch_op.f('ix_prediction_records_account_id'), ['account_id'], unique=False)
+        batch_op.create_index(batch_op.f('ix_prediction_records_prediction_timestamp'), ['prediction_timestamp'], unique=False)
+
 
 def downgrade() -> None:
     """Drop all tables in reverse dependency order."""
+    op.drop_table('prediction_records')
     op.drop_table('prediction_ground_truth')
     op.drop_table('investigator_actions')
     op.drop_table('case_features')

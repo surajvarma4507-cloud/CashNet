@@ -26,19 +26,20 @@ if config.config_file_name is not None:
 # Set target metadata for 'autogenerate' support
 target_metadata = Base.metadata
 
-# Dynamically set sqlalchemy.url from Pydantic settings
-config.set_main_option("sqlalchemy.url", settings.DATABASE_URL)
+# Dynamically set sqlalchemy.url from Pydantic settings if not explicitly provided
+if not config.get_main_option("sqlalchemy.url"):
+    config.set_main_option("sqlalchemy.url", settings.DATABASE_URL)
 
 
 def run_migrations_offline() -> None:
     """Run migrations in 'offline' mode."""
-    url = settings.DATABASE_URL
+    url = config.get_main_option("sqlalchemy.url", settings.DATABASE_URL)
     context.configure(
         url=url,
         target_metadata=target_metadata,
         literal_binds=True,
         dialect_opts={"paramstyle": "named"},
-        render_as_batch=True if settings.DATABASE_URL.startswith("sqlite") else False,
+        render_as_batch=True if url.startswith("sqlite") else False,
     )
 
     with context.begin_transaction():
@@ -48,10 +49,11 @@ def run_migrations_offline() -> None:
 def run_migrations_online() -> None:
     """Run migrations in 'online' mode."""
     configuration = config.get_section(config.config_ini_section, {})
-    configuration["sqlalchemy.url"] = settings.DATABASE_URL
+    url = config.get_main_option("sqlalchemy.url", settings.DATABASE_URL)
+    configuration["sqlalchemy.url"] = url
 
     connect_args = {}
-    if settings.DATABASE_URL.startswith("sqlite"):
+    if url.startswith("sqlite"):
         connect_args["check_same_thread"] = False
 
     connectable = engine_from_config(
@@ -65,7 +67,7 @@ def run_migrations_online() -> None:
         context.configure(
             connection=connection,
             target_metadata=target_metadata,
-            render_as_batch=True if settings.DATABASE_URL.startswith("sqlite") else False,
+            render_as_batch=True if url.startswith("sqlite") else False,
         )
 
         with context.begin_transaction():
